@@ -1,0 +1,37 @@
+<nz-sider [nzCollapsible]="true" (nzCollapsedChange)="collapsedChange($event)" nzWidth="200px">
+    <div class="logo">
+        <img src="../../../../assets/laundry.png" alt="">
+        <h3>Laundry</h3>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-submenu nzTitle="User" nzIcon="user">
+            <ul>
+                <li nz-menu-item>Bill</li>
+                <li nz-menu-item>
+                    <i nz-icon nzType="setting" nzTheme="outline"></i>
+                    <span>Setting User</span>
+                </li>
+                <li nz-menu-item>
+                    <i nz-icon nzType="logout" nzTheme="outline"></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </li>
+        <li nz-menu-item aria-label="Group">
+            <i nz-icon nzType="group" nzTheme="outline"></i>
+            <span>Group</span>
+        </li>
+        <li nz-menu-item aria-label="Name">
+            <i nz-icon nzType="profile" nzTheme="outline"></i>
+            <span>Name</span>
+        </li>
+        <li nz-menu-item aria-label="Laundry">
+            <i nz-icon nzType="database" nzTheme="outline"></i>
+            <span>Laundry</span>
+        </li>
+        <li nz-menu-item>
+            <i nz-icon nzType="file"></i>
+            <span>File</span>
+        </li>
+    </ul>
+</nz-sider>

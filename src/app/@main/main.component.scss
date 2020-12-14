@@ -1,0 +1,59 @@
+.layout{
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    &__right{
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: #f0f2f5;
+    };
+    &__left{
+        max-width: 200px;
+        min-width: 200px;
+        background: #001529;
+    }
+}
+
+.inner-content {
+    padding: 24px;
+    background: #fff;
+    min-height:100%
+}
+
+.sider__responesive__collapsed{
+  min-width: 80px;
+  max-width: 80px;
+  background:#001529;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+nz-content {
+    margin: 0 16px;
+}
+
+nz-breadcrumb {
+    margin: 16px 0;
+}
+
+::ng-deep .search-box{
+    padding: 8px;
+}
+
+::ng-deep .search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+::ng-deep .search-box button {
+    width: 90px;
+}
+
+::ng-deep .search-button {
+    margin-right: 8px;
+}

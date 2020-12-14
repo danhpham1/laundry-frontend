@@ -1,0 +1,33 @@
+.ant-layout-sider{
+  position: absolute;
+  min-height: 100vh;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  h3{
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    padding-left: 14px;
+  };
+  img{
+    width: 35%;
+    margin:5px;
+    height: auto;
+  }
+  &__collapsed{
+    width: 60%;
+    margin: 16px;
+    justify-content: center;
+    height: auto;
+    img{
+      width: 100%;
+    }
+  }
+}
+
+.hide{
+  display: none;
+}
