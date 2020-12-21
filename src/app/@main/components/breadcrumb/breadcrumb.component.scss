@@ -1,0 +1,10 @@
+nz-breadcrumb {
+    margin: 16px 0;
+    :last-child{
+        color: rgba(0,0,0,.45)
+    }
+}
+
+nz-breadcrumb-item{
+    outline: none;
+}

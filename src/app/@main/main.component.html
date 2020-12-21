@@ -6,45 +6,7 @@
   <div class="layout__right">
     <app-header></app-header>
     <nz-content>
-      <nz-breadcrumb>
-        <nz-breadcrumb-item>User</nz-breadcrumb-item>
-        <nz-breadcrumb-item>Bill</nz-breadcrumb-item>
-      </nz-breadcrumb>
-      <div class="inner-content">
-        <!-- <router-outlet></router-outlet> -->
-        <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
-          <thead>
-            <tr>
-              <th nzCustomFilter>
-                Name
-                <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
-                  <i nz-icon nzType="search"></i>
-                </nz-filter-trigger>
-              </th>
-              <th>Age</th>
-              <th>Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let data of nzTable.data">
-              <td>{{ data.name }}</td>
-              <td>{{ data.age }}</td>
-              <td>{{ data.address }}</td>
-            </tr>
-          </tbody>
-        </nz-table>
-        <nz-dropdown-menu #menu="nzDropdownMenu">
-          <div class="ant-table-filter-dropdown">
-            <div class="search-box">
-              <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
-              <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-                Search
-              </button>
-              <button nz-button nzSize="small" (click)="reset()">Reset</button>
-            </div>
-          </div>
-        </nz-dropdown-menu>
-      </div>
+      <router-outlet></router-outlet>
     </nz-content>
     <nz-footer>Ant Design ©2021 Implement By Laundry</nz-footer>
   </div>

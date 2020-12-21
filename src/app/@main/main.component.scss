@@ -16,12 +16,6 @@
     }
 }
 
-.inner-content {
-    padding: 24px;
-    background: #fff;
-    min-height:100%
-}
-
 .sider__responesive__collapsed{
   min-width: 80px;
   max-width: 80px;
@@ -36,24 +30,22 @@ nz-content {
     margin: 0 16px;
 }
 
-nz-breadcrumb {
-    margin: 16px 0;
-}
 
-::ng-deep .search-box{
-    padding: 8px;
-}
 
-::ng-deep .search-box input {
-    width: 188px;
-    margin-bottom: 8px;
-    display: block;
-}
+// ::ng-deep .search-box{
+//     padding: 8px;
+// }
 
-::ng-deep .search-box button {
-    width: 90px;
-}
+// ::ng-deep .search-box input {
+//     width: 188px;
+//     margin-bottom: 8px;
+//     display: block;
+// }
 
-::ng-deep .search-button {
-    margin-right: 8px;
-}
+// ::ng-deep .search-box button {
+//     width: 90px;
+// }
+
+// ::ng-deep .search-button {
+//     margin-right: 8px;
+// }

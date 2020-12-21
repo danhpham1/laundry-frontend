@@ -1,0 +1,19 @@
+<app-breadcrumb [nameBreadcrumb]="'Dash Board'"></app-breadcrumb>
+<div class="inner-content">
+    <div class="chart__title">
+        <h3>Thống Kê</h3>
+    </div>
+    <div class="chart">
+        <div class="chart__info">
+            <div style="display: block">
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+            </div>
+        </div>
+        <div class="chart__update">
+            <button nz-button nzType="primary" [nzLoading]='false' color="primary"
+                (click)="updateChart()">Update</button>
+        </div>
+    </div>
+</div>

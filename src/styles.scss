@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+.inner-content {
+    padding: 24px;
+    background: #fff;
+    min-height:100%
+}
+
+body{
+    overflow-y: hidden;
+    overflow: auto;
+}

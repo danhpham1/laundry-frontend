@@ -1,0 +1,33 @@
+nz-button {
+    margin-right: 8px;
+    margin-bottom: 12px;
+}
+
+//chart
+.chart__title{
+    text-align: center;
+    h3{
+        font-size: 25px;
+        font-weight: 800;
+        padding: 5px;
+    }
+}
+.chart{ 
+    &__info{
+        div{
+            canvas{
+                width: 100% !important;
+            }
+        }
+    }
+    &__update{
+        text-align: center;
+        margin: 25px 5px;
+    }
+    &__update button{
+        font-size: 18px;
+        padding: 5px 20px;
+        border-radius: 10px;
+        height: auto;
+    }
+}

@@ -4,7 +4,27 @@
         <h3>Laundry</h3>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline">
-        <li nz-submenu nzTitle="User" nzIcon="user">
+        <li routerLink='/dashboard' routerLinkActive='ant-menu-item-selected' nz-menu-item aria-label="Dashboard">
+            <i nz-icon nzType="dashboard" nzTheme="outline"></i>
+            <span>Dashboard</span>
+        </li>
+        <li routerLink='/groups' routerLinkActive='ant-menu-item-selected' nz-menu-item aria-label="Group">
+            <i nz-icon nzType="group" nzTheme="outline"></i>
+            <span>Group</span>
+        </li>
+        <li routerLink='/names' routerLinkActive='ant-menu-item-selected' nz-menu-item aria-label="Name">
+            <i nz-icon nzType="profile" nzTheme="outline"></i>
+            <span>Name</span>
+        </li>
+        <li routerLink='/laundries' routerLinkActive='ant-menu-item-selected' nz-menu-item aria-label="Laundry">
+            <i nz-icon nzType="database" nzTheme="outline"></i>
+            <span>Laundry</span>
+        </li>
+        <li nz-menu-item routerLinkActive='ant-menu-item-selected'>
+            <i nz-icon nzType="file"></i>
+            <span>File</span>
+        </li>
+        <li nz-submenu nzTitle="User" nzIcon="user" routerLinkActive='ant-menu-item-selected'>
             <ul>
                 <li nz-menu-item>Bill</li>
                 <li nz-menu-item>
@@ -16,22 +36,6 @@
                     <span>Logout</span>
                 </li>
             </ul>
-        </li>
-        <li nz-menu-item aria-label="Group">
-            <i nz-icon nzType="group" nzTheme="outline"></i>
-            <span>Group</span>
-        </li>
-        <li nz-menu-item aria-label="Name">
-            <i nz-icon nzType="profile" nzTheme="outline"></i>
-            <span>Name</span>
-        </li>
-        <li nz-menu-item aria-label="Laundry">
-            <i nz-icon nzType="database" nzTheme="outline"></i>
-            <span>Laundry</span>
-        </li>
-        <li nz-menu-item>
-            <i nz-icon nzType="file"></i>
-            <span>File</span>
         </li>
     </ul>
 </nz-sider>

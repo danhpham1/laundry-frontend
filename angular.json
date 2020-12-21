@@ -40,7 +40,8 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/js/sider.js"
+              "src/assets/js/sider.js",
+              "./node_modules/chart.js/dist/Chart.min.js"
             ]
           },
           "configurations": {
