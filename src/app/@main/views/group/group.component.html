@@ -1,4 +1,62 @@
 <app-breadcrumb [nameBreadcrumb]="'Group'"></app-breadcrumb>
-<div class="inner-content">
-    groups
+<div class="inner-content group">
+    <div class="group__title">
+        <h4>Group</h4>
+        <button class="group__addButton" nz-button nzType="primary"><i nz-icon nzType="usergroup-add"></i>Add
+            Group</button>
+    </div>
+    <nz-table class="group__table" #fixedTable [nzData]="listMockDataGroupDisplay"
+        [nzScroll]="{ x: '100%', y: '350px' }" [nzPageSizeOptions]="[5,10,15]" [nzTotal]="8" [nzPageIndex]="1"
+        [nzPageSize]="5" [nzShowSizeChanger]="true" [nzBordered]='true'>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th [nzSortFn]="columnName.sortFn" nzCustomFilter>
+                    Name
+                    <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                        [nzDropdownMenu]="menu">
+                        <i nz-icon nzType="search"></i>
+                    </nz-filter-trigger>
+                </th>
+                <th>Date Created</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of fixedTable.data,let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.createAt | date }}</td>
+                <td>
+                    <button nz-button nz-popover nzType="primary" [nzPopoverContent]="contentTemplate"
+                        nzPopoverPlacement="right">
+                        Actions
+                    </button>
+                    <ng-template #contentTemplate>
+                        <div class="group__actionButton">
+                            <div>
+                                <button nz-button nzType="primary" [nzBlock]="true"><i nz-icon
+                                        nzType="edit"></i>Edit</button>
+                            </div>
+                            <div>
+                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger><i nz-icon
+                                        nzType="delete"></i>Delete</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <div class="ant-table-filter-dropdown">
+            <div class="search-box">
+                <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                    Search
+                </button>
+                <button nz-button nzSize="small" (click)="reset()">Reset</button>
+            </div>
+        </div>
+    </nz-dropdown-menu>
 </div>
