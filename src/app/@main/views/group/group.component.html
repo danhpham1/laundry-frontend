@@ -2,7 +2,8 @@
 <div class="inner-content group">
     <div class="group__title">
         <h4>Group</h4>
-        <button class="group__addButton" nz-button nzType="primary"><i nz-icon nzType="usergroup-add"></i>Add
+        <button class="group__addButton" nz-button nzType="primary" (click)="createComponentModal()"><i nz-icon
+                nzType="usergroup-add"></i>Add
             Group</button>
     </div>
     <nz-table class="group__table" #fixedTable [nzData]="listMockDataGroupDisplay"

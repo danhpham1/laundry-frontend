@@ -1,5 +1,7 @@
+import { CreateGroupComponent } from './../../components/group/create-group/create-group.component';
 import { GroupModel, ColumnNameModel } from './../../../@share/models/group.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-group',
@@ -15,7 +17,10 @@ export class GroupComponent implements OnInit {
   searchValue = '';
   visible = false;
 
-  constructor() { }
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private modal: NzModalService
+  ) { }
 
   ngOnInit(): void {
     this.mocDataGroup = [
@@ -75,6 +80,27 @@ export class GroupComponent implements OnInit {
   search(): void {
     this.visible = false;
     this.listMockDataGroupDisplay = this.mocDataGroup.filter((item: GroupModel) => item.name.indexOf(this.searchValue) !== -1);
+  }
+
+  //create model component create group
+  createComponentModal(): void {
+    const modal = this.modal.create({
+      nzTitle: 'Create Group',
+      nzContent: CreateGroupComponent,
+      nzViewContainerRef: this.viewContainerRef,
+      // nzComponentParams: {
+      //   title: 'title in component',
+      // },
+      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
+      nzFooter: [
+
+      ],
+      nzWidth: '900px'
+    });
+    // const instance = modal.getContentComponent();
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // Return a result when closed
+    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
   }
 
 }

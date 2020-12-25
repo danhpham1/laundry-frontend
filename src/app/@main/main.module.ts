@@ -1,6 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
@@ -14,16 +15,18 @@ import { LaundryComponent } from './views/laundry/laundry.component';
 
 import { ChartsModule } from 'ng2-charts';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { CreateGroupComponent } from './components/group/create-group/create-group.component';
 
 
 @NgModule({
-  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent],
+  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
     NgAntdModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class MainModule { }
