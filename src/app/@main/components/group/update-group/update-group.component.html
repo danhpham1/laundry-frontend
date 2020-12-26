@@ -1,0 +1,16 @@
+<div class="updategroup">
+    <h3 class="updategroup__title">Create Group</h3>
+    <div class="updategroup__form">
+        <form nz-form [formGroup]="validateGroupForm" (ngSubmit)="onSubmit()">
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="text">Name of Group</nz-form-label>
+                <nz-form-control nzErrorTip="Please Input Name Of Group">
+                    <input nz-input formControlName="nameGroup" id="nameGroup" />
+                </nz-form-control>
+            </nz-form-item>
+            <div class="updategroup__submit">
+                <button nz-button nzType="primary" nzSize='large' [nzLoading]="false">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -2,7 +2,7 @@
 <div class="inner-content group">
     <div class="group__title">
         <h4>Group</h4>
-        <button class="group__addButton" nz-button nzType="primary" (click)="createComponentModal()"><i nz-icon
+        <button class="group__addButton" nz-button nzType="primary" (click)="createGroupComponentModal()"><i nz-icon
                 nzType="usergroup-add"></i>Add
             Group</button>
     </div>
@@ -29,18 +29,21 @@
                 <td>{{ data.name }}</td>
                 <td>{{ data.createAt | date }}</td>
                 <td>
-                    <button nz-button nz-popover nzType="primary" [nzPopoverContent]="contentTemplate"
-                        nzPopoverPlacement="right">
+                    <button nz-button nz-popover nzPopoverTrigger="click" nzType="primary"
+                        [nzPopoverContent]="contentTemplate" nzPopoverPlacement="right">
                         Actions
                     </button>
                     <ng-template #contentTemplate>
                         <div class="group__actionButton">
                             <div>
-                                <button nz-button nzType="primary" [nzBlock]="true"><i nz-icon
+                                <button nz-button nzType="primary" [nzBlock]="true"
+                                    (click)="createUpdateGroupComponentModel(data._id,data.name)"><i nz-icon
                                         nzType="edit"></i>Edit</button>
                             </div>
                             <div>
-                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger><i nz-icon
+                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
+                                    nzPopconfirmTitle="Are you sure delete this Group?" nzPopconfirmPlacement="bottom"
+                                    (nzOnConfirm)="confirm(data._id)" (nzOnCancel)="cancel()"><i nz-icon
                                         nzType="delete"></i>Delete</button>
                             </div>
                         </div>

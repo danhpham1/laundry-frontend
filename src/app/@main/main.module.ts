@@ -16,10 +16,11 @@ import { LaundryComponent } from './views/laundry/laundry.component';
 import { ChartsModule } from 'ng2-charts';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { CreateGroupComponent } from './components/group/create-group/create-group.component';
+import { UpdateGroupComponent } from './components/group/update-group/update-group.component';
 
 
 @NgModule({
-  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent],
+  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

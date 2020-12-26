@@ -1,0 +1,23 @@
+::ng-deep.ant-modal-footer{
+    padding: 0px;
+}
+
+[nz-form] {
+    max-width: 100%;
+}
+
+.updategroup{
+    &__form{
+        input{
+            width: 50%;
+        }
+    }
+    &__submit{
+        text-align: center;
+        margin-top: 50px;
+        & button{
+            font-weight: 700;
+            text-transform: uppercase
+        }
+    }
+}
