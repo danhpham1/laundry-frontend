@@ -1,9 +1,15 @@
 import { UpdateGroupComponent } from './../../components/group/update-group/update-group.component';
 import { CreateGroupComponent } from './../../components/group/create-group/create-group.component';
-import { GroupModel, ColumnNameModel } from './../../../@share/models/group.model';
+import { GroupModel, ColumnNameModel, GroupModelGet } from './../../../@share/models/group.model';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+
+import * as groupActions from '../../../ngrx/actions/group.action';
+import { groupSelector } from './../../../ngrx/reducers/group.reducer';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { IAppState } from 'src/app/ngrx/models/base.model';
 
 @Component({
   selector: 'app-group',
@@ -11,69 +17,83 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrls: ['./group.component.scss']
 })
 export class GroupComponent implements OnInit {
-
-  mocDataGroup!: Array<GroupModel>;
-  listMockDataGroupDisplay!: Array<GroupModel>;
+  listDataGroupDisplay: Array<GroupModel>;
+  listMockDataGroupDisplay: Array<GroupModel>;
   columnName!: ColumnNameModel;
+  currentPage: number;
+  limit: number;
+  total: number;
+  isLoadingTable!: boolean;
+  subscription!: Subscription
+
 
   searchValue = '';
   visible = false;
 
+  group$: Observable<any> = this.store.select(groupSelector.selectGroupData);
+
   constructor(
     private viewContainerRef: ViewContainerRef,
     private modal: NzModalService,
-    private nzMessageService: NzMessageService
-  ) { }
+    private nzMessageService: NzMessageService,
+    private store: Store<IAppState>
+  ) {
+    this.isLoadingTable = true;
+    this.listMockDataGroupDisplay = [];
+    this.listDataGroupDisplay = [];
+    this.subscription = new Subscription();
+    this.limit = 10;
+    this.currentPage = 1;
+    this.total = 10;
+  }
 
   ngOnInit(): void {
-    this.mocDataGroup = [
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group1",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group2",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group3",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group4",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group5",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group6",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group7",
-        createAt: new Date(),
-      },
-      {
-        _id: "5fe3645cf47eca3ad8498902",
-        name: "Group8",
-        createAt: new Date(),
-      }
-    ]
-    this.listMockDataGroupDisplay = [...this.mocDataGroup];
+    //set page option
     this.columnName = {
       sortFn: (a: GroupModel, b: GroupModel) => a.name.localeCompare(b.name),
     };
+    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
+    this.getDataGroupFromStore();
   }
 
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.unsubscribe();
+  }
+
+  //subscribe
+  getDataGroupFromStore() {
+    let groupsSubcribe = this.group$.subscribe((rs: GroupModelGet) => {
+      if (rs.success) {
+        this.isLoadingTable = false;
+        this.listMockDataGroupDisplay = rs.docs;
+        this.listDataGroupDisplay = [...this.listMockDataGroupDisplay];
+        this.currentPage = rs.page;
+        this.limit = rs.limit;
+        this.total = rs.totalDocs;
+        console.log(this.total);
+      }
+    })
+    this.subscription.add(
+      groupsSubcribe
+    )
+  }
+
+  //change page size 
+  onChangePageSize(event: number) {
+    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, event)));
+  }
+
+
+  //set pageOption
+  setPageOption(currentPage: number, limit: number) {
+    this.currentPage = currentPage;
+    this.limit = limit;
+    return (
+      { currentPage: this.currentPage, limit: this.limit }
+    )
+  }
 
   reset(): void {
     this.searchValue = '';
@@ -82,7 +102,7 @@ export class GroupComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listMockDataGroupDisplay = this.mocDataGroup.filter((item: GroupModel) => item.name.indexOf(this.searchValue) !== -1);
+    this.listDataGroupDisplay = this.listMockDataGroupDisplay.filter((item: GroupModel) => item.name.indexOf(this.searchValue) !== -1);
   }
 
   //create model component create group

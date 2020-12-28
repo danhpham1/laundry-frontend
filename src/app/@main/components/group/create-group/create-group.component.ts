@@ -27,8 +27,6 @@ export class CreateGroupComponent implements OnInit {
 
   //submit form group
   onSubmit() {
-    const ref: NzModalRef = this.modal.info();
-
     for (const i in this.validateGroupForm.controls) {
       this.validateGroupForm.controls[i].markAsDirty();
       this.validateGroupForm.controls[i].updateValueAndValidity();
@@ -37,7 +35,6 @@ export class CreateGroupComponent implements OnInit {
       console.log(this.validateGroupForm.get('nameGroup')?.value);
 
       //if add success close model
-      ref.close();
     }
   }
 }

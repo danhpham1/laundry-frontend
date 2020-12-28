@@ -18,7 +18,6 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { CreateGroupComponent } from './components/group/create-group/create-group.component';
 import { UpdateGroupComponent } from './components/group/update-group/update-group.component';
 
-
 @NgModule({
   declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent],
   imports: [
@@ -27,7 +26,7 @@ import { UpdateGroupComponent } from './components/group/update-group/update-gro
     NgAntdModule,
     FormsModule,
     ChartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class MainModule { }

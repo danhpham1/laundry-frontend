@@ -6,9 +6,10 @@
                 nzType="usergroup-add"></i>Add
             Group</button>
     </div>
-    <nz-table class="group__table" #fixedTable [nzData]="listMockDataGroupDisplay"
-        [nzScroll]="{ x: '100%', y: '350px' }" [nzPageSizeOptions]="[5,10,15]" [nzTotal]="8" [nzPageIndex]="1"
-        [nzPageSize]="5" [nzShowSizeChanger]="true" [nzBordered]='true'>
+    <nz-table class="group__table" #fixedTable [nzData]="listDataGroupDisplay" [nzScroll]="{ x: '100%', y: '350px' }"
+        [nzPageSizeOptions]="[1,5,10,15]" [nzTotal]="total" [nzPageIndex]="currentPage" [nzPageSize]="limit"
+        [nzShowSizeChanger]="true" [nzBordered]='true' [nzLoading]='isLoadingTable'
+        (nzPageSizeChange)="onChangePageSize($event)">
         <thead>
             <tr>
                 <th>ID</th>
