@@ -10,6 +10,8 @@ import { groupSelector } from './../../../ngrx/reducers/group.reducer';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { IAppState } from 'src/app/ngrx/models/base.model';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
+import { ISort } from 'src/app/@share/models/action.model';
 
 @Component({
   selector: 'app-group',
@@ -31,6 +33,7 @@ export class GroupComponent implements OnInit {
   visible = false;
 
   group$: Observable<any> = this.store.select(groupSelector.selectGroupData);
+  error$: Observable<any> = this.store.select(groupSelector.selectGroupFailed);
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -53,6 +56,7 @@ export class GroupComponent implements OnInit {
       sortFn: (a: GroupModel, b: GroupModel) => a.name.localeCompare(b.name),
     };
     this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
+    this.checkError();
     this.getDataGroupFromStore();
   }
 
@@ -82,7 +86,14 @@ export class GroupComponent implements OnInit {
 
   //change page size 
   onChangePageSize(event: number) {
-    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, event)));
+    this.limit = event;
+    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
+  }
+
+  //change page index 
+  onchangePageIndex(event: number) {
+    this.currentPage = event;
+    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
   }
 
 
@@ -93,6 +104,25 @@ export class GroupComponent implements OnInit {
     return (
       { currentPage: this.currentPage, limit: this.limit }
     )
+  }
+
+  //change query params
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    let sort: ISort;
+    sort = params.sort.reduce((object: any, el) => {
+      if (el.value !== null) {
+        let key = el.key;
+        if (el.value == 'ascend') {
+          object[key] = 'asc';
+        }
+        if (el.value == 'descend') {
+          object[key] = 'desc';
+        }
+      }
+      return object;
+    }, {});
+    let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: sort };
+    this.store.dispatch(new groupActions.getGroupRequest(newQuery));
   }
 
   reset(): void {
@@ -160,5 +190,16 @@ export class GroupComponent implements OnInit {
   confirm(id?: string): void {
     console.log(id);
     this.nzMessageService.info('click confirm');
+  }
+
+  //set server when loading failed
+  checkError() {
+    const subscribeError = this.error$.subscribe(error => {
+      if (error) {
+        this.isLoadingTable = false;
+        this.nzMessageService.create('error', 'Load data from server failed');
+      }
+    })
+    this.subscription.add(subscribeError);
   }
 }

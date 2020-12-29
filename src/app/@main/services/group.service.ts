@@ -15,6 +15,10 @@ export class GroupService {
   ) { }
 
   getGroups(pageOption?: IPageOptions): Observable<GroupModelGet> {
-    return this.httpClient.get<GroupModelGet>(`${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIGetGroups}?currentPage=${pageOption?.currentPage}&limit=${pageOption?.limit}`);
+    return this.httpClient.get<GroupModelGet>(`${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIGetGroups}?currentPage=${pageOption?.currentPage}&limit=${pageOption?.limit}`, {
+      params: {
+        ...pageOption?.sort
+      }
+    });
   }
 }

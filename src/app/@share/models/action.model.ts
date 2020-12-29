@@ -5,5 +5,11 @@ export interface IActions {
 
 export interface IPageOptions {
     currentPage: number | undefined,
-    limit: number | undefined
+    limit: number | undefined,
+    sort?: ISort
+}
+
+export interface ISort {
+    name: string,
+    value: string
 }
