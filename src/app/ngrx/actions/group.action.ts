@@ -1,6 +1,5 @@
 import { IPageOptions } from './../../@share/models/action.model';
-import { GroupModelCreate, GroupModelGet } from '../../@share/models/group.model';
-import { Action, createAction } from "@ngrx/store";
+import { Action } from "@ngrx/store";
 
 export const GET_GROUP_REQUEST = 'GET_GROUP_REQUEST';
 export const GET_GROUP_SUCCESS = 'GET_GROUP_SUCCESS';
@@ -24,26 +23,26 @@ export class getGroupSuccess implements Action {
 
 export class getGroupFailed implements Action {
     readonly type: string = GET_GROUP_FAILED;
-    constructor(public payload?: GroupModelGet) {
+    constructor(public payload?: any) {
     }
 }
 
 
 export class createGroupRequest implements Action {
     readonly type: string = CREATE_GROUP_REQUEST;
-    constructor(public payload?: GroupModelCreate) {
+    constructor(public payload?: any) {
     }
 }
 
 export class createGroupSuccess implements Action {
     readonly type: string = CREATE_GROUP_SUCCESS;
-    constructor(public payload?: GroupModelCreate) {
+    constructor(public payload?: any) {
     }
 }
 
 export class createGroupFailed implements Action {
     readonly type: string = CREATE_GROUP_FAILED;
-    constructor(public payload?: GroupModelCreate) {
+    constructor(public payload?: any) {
     }
 }
 

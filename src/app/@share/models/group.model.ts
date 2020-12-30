@@ -17,7 +17,11 @@ export interface GroupModelCreate {
     name: string,
 }
 
-export interface GroupModelGet {
+export interface ICreateGroupBody {
+    name: string,
+}
+
+export interface IGroupModelGet {
     success: boolean,
     docs: Array<GroupModel> | [],
     totalDocs: number,
@@ -30,3 +34,9 @@ export interface GroupModelGet {
     prevPage?: boolean,
     nextPage?: boolean,
 }
+
+export interface ICreateGroupResponse {
+    success: boolean,
+    results: GroupModel | {}
+}
+

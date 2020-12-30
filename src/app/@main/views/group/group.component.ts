@@ -1,17 +1,19 @@
-import { UpdateGroupComponent } from './../../components/group/update-group/update-group.component';
-import { CreateGroupComponent } from './../../components/group/create-group/create-group.component';
-import { GroupModel, ColumnNameModel, GroupModelGet } from './../../../@share/models/group.model';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 
-import * as groupActions from '../../../ngrx/actions/group.action';
-import { groupSelector } from './../../../ngrx/reducers/group.reducer';
+import { UpdateGroupComponent } from './../../components/group/update-group/update-group.component';
+import { CreateGroupComponent } from './../../components/group/create-group/create-group.component';
+
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { IAppState } from 'src/app/ngrx/models/base.model';
-import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ISort } from 'src/app/@share/models/action.model';
+import * as groupActions from '../../../ngrx/actions/group.action';
+import { IAppState } from '../../../ngrx/models/base.model';
+import { groupSelector } from './../../../ngrx/reducers/group.reducer';
+
+import { ISort } from '../../../@share/models/action.model';
+import { GroupModel, ColumnNameModel, IGroupModelGet } from './../../../@share/models/group.model';
 
 @Component({
   selector: 'app-group',
@@ -26,7 +28,8 @@ export class GroupComponent implements OnInit {
   limit: number;
   total: number;
   isLoadingTable!: boolean;
-  subscription!: Subscription
+  subscription!: Subscription;
+  sort!: ISort;
 
 
   searchValue = '';
@@ -68,7 +71,7 @@ export class GroupComponent implements OnInit {
 
   //subscribe
   getDataGroupFromStore() {
-    let groupsSubcribe = this.group$.subscribe((rs: GroupModelGet) => {
+    let groupsSubcribe = this.group$.subscribe((rs: IGroupModelGet) => {
       if (rs.success) {
         this.isLoadingTable = false;
         this.listMockDataGroupDisplay = rs.docs;
@@ -76,26 +79,12 @@ export class GroupComponent implements OnInit {
         this.currentPage = rs.page;
         this.limit = rs.limit;
         this.total = rs.totalDocs;
-        console.log(this.total);
       }
     })
     this.subscription.add(
       groupsSubcribe
     )
   }
-
-  //change page size 
-  onChangePageSize(event: number) {
-    this.limit = event;
-    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
-  }
-
-  //change page index 
-  onchangePageIndex(event: number) {
-    this.currentPage = event;
-    this.store.dispatch(new groupActions.getGroupRequest(this.setPageOption(this.currentPage, this.limit)));
-  }
-
 
   //set pageOption
   setPageOption(currentPage: number, limit: number) {
@@ -108,8 +97,17 @@ export class GroupComponent implements OnInit {
 
   //change query params
   onQueryParamsChange(params: NzTableQueryParams): void {
-    let sort: ISort;
-    sort = params.sort.reduce((object: any, el) => {
+    //set current page
+    if (this.currentPage !== params.pageIndex) {
+      this.currentPage = params.pageIndex;
+    }
+    //set page size
+    if (this.limit !== params.pageSize) {
+      this.limit = params.pageSize;
+    }
+
+
+    this.sort = params.sort.reduce((object: any, el) => {
       if (el.value !== null) {
         let key = el.key;
         if (el.value == 'ascend') {
@@ -121,7 +119,7 @@ export class GroupComponent implements OnInit {
       }
       return object;
     }, {});
-    let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: sort };
+    let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: this.sort };
     this.store.dispatch(new groupActions.getGroupRequest(newQuery));
   }
 
@@ -153,7 +151,11 @@ export class GroupComponent implements OnInit {
     // const instance = modal.getContentComponent();
     modalCreateGroup.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    modalCreateGroup.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+    modalCreateGroup.afterClose.subscribe(result => {
+      let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: this.sort };
+      console.log(newQuery);
+      this.store.dispatch(new groupActions.getGroupRequest(newQuery));
+    });
   }
 
   //update model component create group

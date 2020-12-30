@@ -9,12 +9,11 @@
     <nz-table class="group__table" #fixedTable [nzData]="listDataGroupDisplay" [nzScroll]="{ x: '100%', y: '350px' }"
         [nzPageSizeOptions]="[1,5,10,25,35,50,100]" [nzTotal]="total" [nzPageIndex]="currentPage" [nzPageSize]="limit"
         [nzShowSizeChanger]="true" [nzBordered]='true' [nzLoading]='isLoadingTable' [nzFrontPagination]="false"
-        (nzPageSizeChange)="onChangePageSize($event)" (nzPageIndexChange)="onchangePageIndex($event)"
         (nzQueryParams)="onQueryParamsChange($event)">
         <thead>
             <tr>
                 <th>ID</th>
-                <th nzColumnKey="name" [nzSortFn]="true" [nzSortFn]="true" nzCustomFilter>
+                <th nzColumnKey="name" [nzSortFn]="true" nzCustomFilter>
                     Name
                     <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
                         [nzDropdownMenu]="menu">

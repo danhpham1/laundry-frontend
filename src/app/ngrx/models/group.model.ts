@@ -1,6 +1,7 @@
-import { GroupModelGet } from "src/app/@share/models/group.model";
+import { IGroupModelGet, ICreateGroupResponse } from "./../../@share/models/group.model";
 
 export interface InitStateGroup {
-    groupData: GroupModelGet;
+    groupData: IGroupModelGet;
+    groupCreateResponse: ICreateGroupResponse
     error: any
 }
