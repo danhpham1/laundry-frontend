@@ -21,6 +21,11 @@ export interface ICreateGroupBody {
     name: string,
 }
 
+export interface IUpdateGroupBody {
+    name: string,
+    id: string,
+    isHide?: boolean,
+}
 export interface IGroupModelGet {
     success: boolean,
     docs: Array<GroupModel> | [],

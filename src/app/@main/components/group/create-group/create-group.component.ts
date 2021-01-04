@@ -9,6 +9,7 @@ import * as groupActions from '../../../../ngrx/actions/group.action';
 import { ICreateGroupResponse } from 'src/app/@share/models/group.model';
 import { IAppState } from 'src/app/ngrx/models/base.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { last, take, takeLast } from 'rxjs/operators';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CreateGroupComponent implements OnInit {
   subscription: Subscription;
 
   groupCreateResponse$: Observable<ICreateGroupResponse>;
+  errorCreateGroupResponse$: Observable<any>;
 
   // @Output() closeModelGroup = new EventEmitter();
 
@@ -32,6 +34,8 @@ export class CreateGroupComponent implements OnInit {
     private nzMessageService: NzMessageService,
   ) {
     this.groupCreateResponse$ = this.store.select(groupSelector.selectCreateGroupResponse);
+    this.errorCreateGroupResponse$ = this.store.select(groupSelector.selectCreateGroupFailedResponse);
+
     this.subscription = new Subscription();
   }
 
@@ -57,15 +61,28 @@ export class CreateGroupComponent implements OnInit {
     if (this.validateGroupForm.valid) {
       let name = this.validateGroupForm.get('nameGroup')?.value;
       this.store.dispatch(new groupActions.createGroupRequest({ name: name }));
+      //check add success or failed
+      this.handleCreateGroupFailed();
       this.handleCreateGroupSuccess();
-      //if add success close model
     }
+  }
+
+  handleCreateGroupFailed() {
+    let subscribe = this.errorCreateGroupResponse$
+      .pipe(take(2))
+      .subscribe(rs => {
+        console.log(rs);
+        if (rs === false) {
+          this.nzMessageService.create('error', 'Tên bị trùng vui lòng nhập tên mới!')
+        }
+      })
+    this.subscription.add(subscribe);
   }
 
   handleCreateGroupSuccess() {
     let subscribe = this.groupCreateResponse$.subscribe(rs => {
       if (rs.success) {
-        // this.store.dispatch(new groupActions.getGroupRequest());
+        this.nzMessageService.create('success', 'Tạo group thành công!');
         this.modal.closeAll();
       }
     })

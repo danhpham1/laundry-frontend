@@ -13,7 +13,8 @@ export const environment = {
   APIVersion: '/v1',
 
   //group
-  APIGetGroups: '/groups'
+  APIGetGroups: '/groups',
+  APIPatchGroup: '/group/'
 };
 
 /*

@@ -36,7 +36,22 @@ export class GroupEffects {
                     return of(new GroupActions.createGroupSuccess(groupResponse))
                 }),
                 catchError((error: any) => {
-                    return of(new GroupActions.createGroupFailed(error));
+                    return of(new GroupActions.createGroupFailed(error.error.success));
+                })
+            )
+        })
+    )
+
+    @Effect() updateGroup: Observable<Action> = this.actions$.pipe(
+        ofType<GroupActions.updateGroupRequest>(GroupActions.UPDATE_GROUP_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.groupService.updateGroup(payload).pipe(
+                switchMap((groupResponse: ICreateGroupResponse) => {
+                    return of(new GroupActions.createGroupSuccess(groupResponse.success))
+                }),
+                catchError((error: any) => {
+                    return of(new GroupActions.createGroupFailed(error.error.success));
                 })
             )
         })

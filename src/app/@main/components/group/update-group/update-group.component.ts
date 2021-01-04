@@ -26,6 +26,7 @@ export class UpdateGroupComponent implements OnInit {
       nameGroup: [this.groupName, [Validators.required]]
     });
     this.visible = false;
+    console.log(this.id, this.groupName);
   }
 
   onSubmit() {
@@ -37,14 +38,9 @@ export class UpdateGroupComponent implements OnInit {
     //check name of group not change
     let groupNameValue = this.validateGroupForm.get('nameGroup')?.value;
     if (groupNameValue == this.groupName) {
-      this.message.create('warning', 'The name of group not change!');
-    }
-    //check name of group change and valid
-    if (this.validateGroupForm.valid) {
-      console.log(this.validateGroupForm.get('nameGroup')?.value);
-      setTimeout(() => {
-        this.modal.closeAll();
-      }, 200);
+      this.message.create('warning', 'Vui lòng nhập tên mới của group');
+    } else {
+
     }
   }
 }

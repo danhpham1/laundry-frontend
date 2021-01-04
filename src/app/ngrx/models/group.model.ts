@@ -2,6 +2,8 @@ import { IGroupModelGet, ICreateGroupResponse } from "./../../@share/models/grou
 
 export interface InitStateGroup {
     groupData: IGroupModelGet;
-    groupCreateResponse: ICreateGroupResponse
+    groupCreateResponse: ICreateGroupResponse,
+    isCreateFailed: boolean | undefined,
+    isUpdateSuccess: boolean | undefined,
     error: any
 }
