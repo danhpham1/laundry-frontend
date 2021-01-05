@@ -60,26 +60,33 @@ export class UpdateGroupComponent implements OnInit {
       this.nzMessageService.create('warning', 'Vui lòng nhập tên mới của group');
     } else {
       if (this.validateGroupForm.valid) {
-        this.store.dispatch(new groupActions.updateGroupRequest(
-          {
-            id: this.id,
-            name: groupNameValue
-          }
-        ))
-
-        let subscribe = this.groupUpdateResponse$
-          .pipe(take(2))
-          .subscribe(rs => {
-            if (rs === true) {
-              this.nzMessageService.create('success', 'Cập nhập tên group thành công!');
-              this.modal.closeAll();
-            }
-            if (rs === false) {
-              this.nzMessageService.create('error', 'Cập nhập tên group thất bại!');
-            }
-          })
-        this.subscription.add(subscribe);
+        this.dispatchUpdateGroup(groupNameValue);
+        this.handleUpdateGroup();
       }
     }
+  }
+
+  dispatchUpdateGroup(groupName: string) {
+    this.store.dispatch(new groupActions.updateGroupRequest(
+      {
+        id: this.id,
+        name: groupName
+      }
+    ))
+  }
+
+  handleUpdateGroup() {
+    let groupUpdatesubscribe = this.groupUpdateResponse$
+      .pipe(take(2))
+      .subscribe(rs => {
+        if (rs === true) {
+          this.nzMessageService.create('success', 'Cập nhập tên group thành công!');
+          this.modal.closeAll();
+        }
+        if (rs === false) {
+          this.nzMessageService.create('error', 'Cập nhập tên group thất bại!');
+        }
+      })
+    this.subscription.add(groupUpdatesubscribe);
   }
 }
