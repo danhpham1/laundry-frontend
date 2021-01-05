@@ -4,6 +4,7 @@ export interface InitStateGroup {
     groupData: IGroupModelGet;
     groupCreateResponse: ICreateGroupResponse,
     isCreateFailed: boolean | undefined,
-    isUpdateSuccess: boolean | undefined,
+    isUpdate: boolean | undefined,
+    isDelete: boolean | undefined,
     error: any
 }

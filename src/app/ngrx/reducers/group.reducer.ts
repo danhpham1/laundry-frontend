@@ -1,7 +1,7 @@
 import { IAppState } from './../models/base.model';
 import { InitStateGroup } from '../models/group.model';
 import { IActions } from './../../@share/models/action.model';
-import { CREATE_GROUP_SUCCESS, GET_GROUP_FAILED, GET_GROUP_SUCCESS, CREATE_GROUP_FAILED, GET_GROUP_REQUEST, CREATE_GROUP_REQUEST, UPDATE_GROUP_SUCCESS, UPDATE_GROUP_FAILED } from './../actions/group.action';
+import { CREATE_GROUP_SUCCESS, GET_GROUP_FAILED, GET_GROUP_SUCCESS, CREATE_GROUP_FAILED, GET_GROUP_REQUEST, CREATE_GROUP_REQUEST, UPDATE_GROUP_SUCCESS, UPDATE_GROUP_FAILED, UPDATE_GROUP_REQUEST, DELETE_GROUP_REQUEST, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAILED } from './../actions/group.action';
 import { createSelector } from '@ngrx/store';
 
 const initialSate: InitStateGroup = {
@@ -17,23 +17,27 @@ const initialSate: InitStateGroup = {
         results: {}
     },
     isCreateFailed: false,
-    isUpdateSuccess: false,
+    isUpdate: undefined,
+    isDelete: undefined,
     error: undefined
 }
 
 export function groupReducer(state: InitStateGroup = initialSate, action: IActions) {
+    // console.log(action.payload);
     switch (action.type) {
         case GET_GROUP_REQUEST: {
             return {
                 ...state,
-                error: clearError()
+                isCreateFailed: clearIsCreateGroupFailed(),
+                isUpdate: undefined,
+                isDelete: undefined,
+                error: clearError(),
             }
         }
         case GET_GROUP_SUCCESS: {
             return {
                 ...state,
                 groupData: { ...action.payload },
-                error: clearError()
             }
         }
         case GET_GROUP_FAILED: {
@@ -45,13 +49,14 @@ export function groupReducer(state: InitStateGroup = initialSate, action: IActio
         case CREATE_GROUP_REQUEST: {
             return {
                 ...state,
-                groupData: { ...action.payload },
                 groupCreateResponse: {
                     success: false,
                     results: {}
                 },
                 isCreateFailed: clearIsCreateGroupFailed(),
-                error: clearError()
+                isUpdate: undefined,
+                isDelete: undefined,
+                error: clearError(),
             }
         }
         case CREATE_GROUP_SUCCESS: {
@@ -60,31 +65,55 @@ export function groupReducer(state: InitStateGroup = initialSate, action: IActio
                 groupCreateResponse: {
                     ...action.payload
                 },
-                isCreateFailed: clearIsCreateGroupFailed(),
-                error: clearError()
             }
         }
         case CREATE_GROUP_FAILED: {
             return {
                 ...state,
                 isCreateFailed: action.payload,
+            }
+        }
+        case UPDATE_GROUP_REQUEST: {
+            return {
+                ...state,
+                isCreateFailed: clearIsCreateGroupFailed(),
+                isUpdate: undefined,
+                isDelete: undefined,
                 error: clearError(),
             }
         }
         case UPDATE_GROUP_SUCCESS: {
             return {
                 ...state,
-                isCreateFailed: clearIsCreateGroupFailed(),
-                error: clearError(),
-                isUpdateSuccess: action.payload
+                isUpdate: action.payload,
             }
         }
         case UPDATE_GROUP_FAILED: {
             return {
                 ...state,
+                isUpdate: action.payload
+            }
+        }
+        case DELETE_GROUP_REQUEST: {
+            return {
+                ...state,
                 isCreateFailed: clearIsCreateGroupFailed(),
+                isUpdateSuccess: undefined,
+                isDelete: undefined,
                 error: clearError(),
-                isUpdateSuccess: action.payload
+
+            }
+        }
+        case DELETE_GROUP_SUCCESS: {
+            return {
+                ...state,
+                isDelete: action.payload
+            }
+        }
+        case DELETE_GROUP_FAILED: {
+            return {
+                ...state,
+                isDelete: action.payload
             }
         }
         default: {
@@ -92,7 +121,8 @@ export function groupReducer(state: InitStateGroup = initialSate, action: IActio
                 ...state,
                 error: clearError(),
                 isCreateFailed: clearIsCreateGroupFailed(),
-                isUpdateSuccess: false
+                isUpdateSuccess: undefined,
+                isDelete: undefined
             }
         }
     }
@@ -105,7 +135,8 @@ export const groupSelector = {
     selectCreateGroupResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.groupCreateResponse),
     selectGroupFailed: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.error),
     selectCreateGroupFailedResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.isCreateFailed),
-    selectUpdateGroupResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.isUpdateSuccess)
+    selectUpdateGroupResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.isUpdate),
+    selectDelteGroupResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.isDelete)
 }
 
 function clearError() {

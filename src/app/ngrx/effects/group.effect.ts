@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import * as GroupActions from './../actions/group.action';
-import { ICreateGroupResponse, IGroupModelGet } from '../../@share/models/group.model';
+import { ICreateGroupResponse, IDeleteGroupResponse, IGroupModelGet } from '../../@share/models/group.model';
 
 @Injectable()
 export class GroupEffects {
@@ -48,10 +48,25 @@ export class GroupEffects {
         switchMap((payload) => {
             return this.groupService.updateGroup(payload).pipe(
                 switchMap((groupResponse: ICreateGroupResponse) => {
-                    return of(new GroupActions.createGroupSuccess(groupResponse.success))
+                    return of(new GroupActions.updateGroupSuccess(groupResponse.success))
                 }),
                 catchError((error: any) => {
-                    return of(new GroupActions.createGroupFailed(error.error.success));
+                    return of(new GroupActions.updateGroupFailed(error.error.success));
+                })
+            )
+        })
+    )
+
+    @Effect() deleteGroup: Observable<Action> = this.actions$.pipe(
+        ofType<GroupActions.deleteGroupRequest>(GroupActions.DELETE_GROUP_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.groupService.deleteGroup(payload?.id).pipe(
+                switchMap((groupDeleteResponse: IDeleteGroupResponse) => {
+                    return of(new GroupActions.deleteGroupSuccess(groupDeleteResponse.success))
+                }),
+                catchError((error: any) => {
+                    return of(new GroupActions.updateGroupFailed(error.error.success));
                 })
             )
         })

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
+
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
@@ -8,6 +9,8 @@ import { CreateGroupComponent } from './../../components/group/create-group/crea
 
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
+
 import * as groupActions from '../../../ngrx/actions/group.action';
 import { IAppState } from '../../../ngrx/models/base.model';
 import { groupSelector } from './../../../ngrx/reducers/group.reducer';
@@ -36,6 +39,7 @@ export class GroupComponent implements OnInit {
   visible = false;
 
   group$: Observable<any> = this.store.select(groupSelector.selectGroupData);
+  groupDelete$: Observable<boolean | undefined> = this.store.select(groupSelector.selectDelteGroupResponse);
   error$: Observable<any> = this.store.select(groupSelector.selectGroupFailed);
 
   constructor(
@@ -119,18 +123,7 @@ export class GroupComponent implements OnInit {
       }
       return object;
     }, {});
-    let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: this.sort };
-    this.store.dispatch(new groupActions.getGroupRequest(newQuery));
-  }
-
-  reset(): void {
-    this.searchValue = '';
-    this.search();
-  }
-
-  search(): void {
-    this.visible = false;
-    this.listDataGroupDisplay = this.listMockDataGroupDisplay.filter((item: GroupModel) => item.name.indexOf(this.searchValue) !== -1);
+    this.distpatchGetGroupList();
   }
 
   //create model component create group
@@ -139,22 +132,14 @@ export class GroupComponent implements OnInit {
       nzTitle: 'Create Group',
       nzContent: CreateGroupComponent,
       nzViewContainerRef: this.viewContainerRef,
-      // nzComponentParams: {
-      //   title: 'title in component',
-      // },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: [
-
       ],
       nzWidth: '900px'
     });
-    // const instance = modal.getContentComponent();
-    modalCreateGroup.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    modalCreateGroup.afterOpen.subscribe(() => { });
     // Return a result when closed
     modalCreateGroup.afterClose.subscribe(result => {
-      let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: this.sort };
-      console.log(newQuery);
-      this.store.dispatch(new groupActions.getGroupRequest(newQuery));
+      this.distpatchGetGroupList();
     });
   }
 
@@ -168,31 +153,55 @@ export class GroupComponent implements OnInit {
         groupName: groupName
       },
       nzViewContainerRef: this.viewContainerRef,
-      // nzComponentParams: {
-      //   title: 'title in component',
-      // },
-      // nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000)),
       nzFooter: [
-
       ],
       nzWidth: '900px'
     });
-    // const instance = modal.getContentComponent();
-    modalUpdateGroup.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    modalUpdateGroup.afterOpen.subscribe(() => { });
     // Return a result when closed
-    modalUpdateGroup.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+    modalUpdateGroup.afterClose.subscribe(result => {
+      this.distpatchGetGroupList();
+    });
   }
 
 
   //delete group
-  cancel(): void {
-    this.nzMessageService.info('click cancel');
+  confirm(id?: string): void {
+    this.store.dispatch(new groupActions.deleteGroupRequest({
+      id: id
+    }))
+    let groupSubscribe = this.groupDelete$
+      .pipe(take(2))
+      .subscribe(rs => {
+        console.log(rs);
+        if (rs === true) {
+          this.nzMessageService.create('success', 'Xóa group thành công!');
+          this.distpatchGetGroupList();
+        }
+        if (rs === false) {
+          this.nzMessageService.create('error', 'Xóa group thất bại!');
+        }
+      })
+    this.subscription.add(groupSubscribe);
   }
 
-  confirm(id?: string): void {
-    console.log(id);
-    this.nzMessageService.info('click confirm');
+  //call get list group
+  distpatchGetGroupList() {
+    let newQuery = { ...this.setPageOption(this.currentPage, this.limit), sort: this.sort };
+    this.store.dispatch(new groupActions.getGroupRequest(newQuery));
   }
+
+  //set function for find field name
+  reset(): void {
+    this.searchValue = '';
+    this.search();
+  }
+
+  search(): void {
+    this.visible = false;
+    this.listDataGroupDisplay = this.listMockDataGroupDisplay.filter((item: GroupModel) => item.name.indexOf(this.searchValue) !== -1);
+  }
+
 
   //set server when loading failed
   checkError() {

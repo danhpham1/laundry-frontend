@@ -21,6 +21,10 @@ export interface ICreateGroupBody {
     name: string,
 }
 
+export interface IDeleteGroupBody {
+    id: string
+}
+
 export interface IUpdateGroupBody {
     name: string,
     id: string,
@@ -43,5 +47,10 @@ export interface IGroupModelGet {
 export interface ICreateGroupResponse {
     success: boolean,
     results: GroupModel | {}
+}
+
+export interface IDeleteGroupResponse {
+    success: boolean,
+    message: string
 }
 

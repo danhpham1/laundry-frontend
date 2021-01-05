@@ -1,17 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { groupSelector } from '../../../../ngrx/reducers/group.reducer';
-import * as groupActions from '../../../../ngrx/actions/group.action';
-import { ICreateGroupResponse } from 'src/app/@share/models/group.model';
-import { IAppState } from 'src/app/ngrx/models/base.model';
-import { NzMessageService } from 'ng-zorro-antd/message';
 import { last, take, takeLast } from 'rxjs/operators';
 
+import { groupSelector } from '../../../../ngrx/reducers/group.reducer';
+import * as groupActions from '../../../../ngrx/actions/group.action';
 
+import { ICreateGroupResponse } from '../../../../@share/models/group.model';
+import { IAppState } from '../../../../ngrx/models/base.model';
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html',
@@ -80,12 +81,14 @@ export class CreateGroupComponent implements OnInit {
   }
 
   handleCreateGroupSuccess() {
-    let subscribe = this.groupCreateResponse$.subscribe(rs => {
-      if (rs.success) {
-        this.nzMessageService.create('success', 'Tạo group thành công!');
-        this.modal.closeAll();
-      }
-    })
+    let subscribe = this.groupCreateResponse$
+      .pipe(take(2))
+      .subscribe(rs => {
+        if (rs.success) {
+          this.nzMessageService.create('success', 'Tạo group thành công!');
+          this.modal.closeAll();
+        }
+      })
     this.subscription.add(subscribe);
   }
 }

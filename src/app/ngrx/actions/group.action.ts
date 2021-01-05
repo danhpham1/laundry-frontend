@@ -13,6 +13,10 @@ export const UPDATE_GROUP_REQUEST = 'UPDATE_GROUP_REQUEST';
 export const UPDATE_GROUP_SUCCESS = 'UPDATE_GROUP_SUCCESS';
 export const UPDATE_GROUP_FAILED = 'UPDATE_GROUP_FAILED';
 
+export const DELETE_GROUP_REQUEST = 'DELETE_GROUP_REQUEST';
+export const DELETE_GROUP_SUCCESS = 'DELETE_GROUP_SUCCESS';
+export const DELETE_GROUP_FAILED = 'DELETE_GROUP_FAILED';
+
 export class getGroupRequest implements Action {
     readonly type: string = GET_GROUP_REQUEST;
     constructor(public payload?: IPageOptions) {
@@ -68,6 +72,24 @@ export class updateGroupFailed implements Action {
     }
 }
 
+export class deleteGroupRequest implements Action {
+    readonly type: string = DELETE_GROUP_REQUEST;
+    constructor(public payload?: any) {
+    }
+}
+
+export class deleteGroupSuccess implements Action {
+    readonly type: string = DELETE_GROUP_SUCCESS;
+    constructor(public payload?: any) {
+    }
+}
+
+export class deleteGroupFailed implements Action {
+    readonly type: string = DELETE_GROUP_FAILED;
+    constructor(public payload?: any) {
+    }
+}
+
 
 
 export type GroupActions =
@@ -79,5 +101,8 @@ export type GroupActions =
     createGroupFailed |
     updateGroupRequest |
     updateGroupSuccess |
-    updateGroupFailed
+    updateGroupFailed |
+    deleteGroupRequest |
+    deleteGroupSuccess |
+    deleteGroupFailed
     ;
