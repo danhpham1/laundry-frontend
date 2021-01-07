@@ -1,0 +1,34 @@
+<div class="createname">
+    <h3 class="createname__title">
+        Name Create
+    </h3>
+    <div class="createname__form">
+        <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" (ngSubmit)="submitForm()">
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="name">Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please Input Name">
+                    <input nz-input formControlName="name" id="name" type="text" />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzFor="idGroup" nzRequired>Group of Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please select Group of Name!">
+                    <nz-select id="idGroup" formControlName="idGroup"
+                        nzPlaceHolder="Select a option and change input text above">
+                        <nz-option nzValue="male" nzLabel="male"></nz-option>
+                        <nz-option nzValue="female" nzLabel="female"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="price">Price</nz-form-label>
+                <nz-form-control nzErrorTip="Please Input Price">
+                    <input nz-input formControlName="price" id="price" type="number" />
+                </nz-form-control>
+            </nz-form-item>
+            <div class="createname__submit">
+                <button nz-button nzType="primary" nzSize='large' [nzLoading]="false">Create Name</button>
+            </div>
+        </form>
+    </div>
+</div>

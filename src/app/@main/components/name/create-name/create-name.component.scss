@@ -1,0 +1,39 @@
+::ng-deep.ant-modal-footer{
+   padding: 0px ; 
+}
+
+[nz-form] {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+::ng-deep nz-form-item {
+    width: 50%;
+}
+
+
+.ant-form-item .ant-select{
+    width: 100%;
+}
+
+.createname{
+    &__title{
+        text-align: center;
+        padding-bottom: 20px;
+    }
+    &__form{
+        input{
+            width: 100%;
+            border: 1px solid #d9d9d9;
+        }
+    }
+    &__submit{
+        margin-top: 50px;
+        & button{
+            font-weight: 700;
+            text-transform: uppercase
+        }
+    }
+}
