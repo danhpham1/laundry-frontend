@@ -5,7 +5,8 @@ export interface GroupModel {
     createAt: Date,
     updateAt: Date,
     isHide: boolean,
-    idNameLaundryArray: Array<any>
+    idNameLaundryArray: Array<any>,
+    nameLaundryArrayInfo: Array<any>,
     name: string,
 }
 
@@ -54,3 +55,15 @@ export interface IDeleteGroupResponse {
     message: string
 }
 
+//interface for name
+export interface IGroupInfo {
+    _id: string,
+    createAt: Date,
+    updateAt: Date,
+    isHide: boolean,
+    idNameLaundryArray: Array<INameOfId>
+}
+
+export interface INameOfId {
+    idNameLaundry: string
+}

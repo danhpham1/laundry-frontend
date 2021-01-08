@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,9 +8,13 @@ import en from '@angular/common/locales/en';
 
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducerMap, StoreModule } from '@ngrx/store';
+
 import * as group from './ngrx/reducers/group.reducer';
-import { IAppState } from './ngrx/models/base.model';
 import { GroupEffects } from './ngrx/effects/group.effect';
+
+import * as name from './ngrx/reducers/name.reducer';
+
+import { IAppState } from './ngrx/models/base.model';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
@@ -23,7 +27,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 export const Reducers: ActionReducerMap<IAppState, any> = {
-  group: group.groupReducer
+  group: group.groupReducer,
+  name: name.nameReducer
 }
 
 const EFFECTS_LIST: Array<any> = [GroupEffects];

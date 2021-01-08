@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-create-name',
-  templateUrl: './create-name.component.html',
-  styleUrls: ['./create-name.component.scss']
+  selector: 'app-update-name',
+  templateUrl: './update-name.component.html',
+  styleUrls: ['./update-name.component.scss']
 })
-export class CreateNameComponent implements OnInit {
+export class UpdateNameComponent implements OnInit {
   validateForm!: FormGroup;
 
   constructor(
@@ -31,4 +31,5 @@ export class CreateNameComponent implements OnInit {
       console.log(this.validateForm)
     }
   }
+
 }

@@ -18,9 +18,10 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { CreateGroupComponent } from './components/group/create-group/create-group.component';
 import { UpdateGroupComponent } from './components/group/update-group/update-group.component';
 import { CreateNameComponent } from './components/name/create-name/create-name.component';
+import { UpdateNameComponent } from './components/name/update-name/update-name.component';
 
 @NgModule({
-  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent, CreateNameComponent],
+  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent, CreateNameComponent, UpdateNameComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

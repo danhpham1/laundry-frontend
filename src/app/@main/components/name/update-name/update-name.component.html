@@ -1,8 +1,8 @@
-<div class="createname">
-    <h3 class="createname__title">
-        Name Create
+<div class="updatename">
+    <h3 class="updatename__title">
+        Name Update
     </h3>
-    <div class="createname__form">
+    <div class="updatename__form">
         <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" (ngSubmit)="submitForm()">
             <nz-form-item>
                 <nz-form-label nzRequired nzFor="name">Name</nz-form-label>
@@ -26,7 +26,7 @@
                     <input nz-input formControlName="price" id="price" type="number" pattern="[0-9]*" />
                 </nz-form-control>
             </nz-form-item>
-            <div class="createname__submit">
+            <div class="updatename__submit">
                 <button nz-button nzType="primary" nzSize='large' [nzLoading]="false">Create Name</button>
             </div>
         </form>
