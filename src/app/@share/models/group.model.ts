@@ -61,7 +61,8 @@ export interface IGroupInfo {
     createAt: Date,
     updateAt: Date,
     isHide: boolean,
-    idNameLaundryArray: Array<INameOfId>
+    idNameLaundryArray: Array<INameOfId>,
+    name:string
 }
 
 export interface INameOfId {

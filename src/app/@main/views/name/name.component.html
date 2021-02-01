@@ -7,7 +7,9 @@
             Name</button>
     </div>
     <nz-table class="name__table" #fixedTable [nzData]="listOfData" [nzScroll]="{ x: '100%', y: '350px' }"
-        [nzPageSizeOptions]="[5,10,25,35,50,100]" [nzShowSizeChanger]="true" [nzBordered]='true'>
+        [nzPageSizeOptions]="[5,10,25,35,50,100]" [nzShowSizeChanger]="true" [nzBordered]='true' 
+        [nzFrontPagination]='false' [nzPageSize]='pageSize' [nzTotal]='total' [nzPageIndex]='pageIndex' 
+        [nzLoading]='isLoadingTable' (nzQueryParams)="onChangeQueryParams($event)">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,10 +23,10 @@
         <tbody>
             <tr *ngFor="let data of fixedTable.data;let i = index">
                 <td>{{i + 1}}</td>
-                <td>{{ data.age }}</td>
-                <td>{{ data.address }}</td>
                 <td>{{ data.name }}</td>
-                <td></td>
+                <td>{{ data.groupInfo[0].name }}</td>
+                <td>{{ data.createAt | date:'short' }}</td>
+                <td>{{ data.price | currency:"VND":"symbol"}}</td>
                 <td>
                     <button nz-button nz-popover nzPopoverTrigger="click" nzType="primary"
                         [nzPopoverContent]="contentTemplate" nzPopoverPlacement="right">

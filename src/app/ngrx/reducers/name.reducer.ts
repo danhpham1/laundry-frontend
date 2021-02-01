@@ -66,7 +66,8 @@ export function nameReducer(state: InitStateName = initialState, action: IAction
 
 const createSelectorName = (state: IAppState) => state.name;
 export const nameSelector = {
-    selectNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.nameResponse)
+    selectNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.nameResponse),
+    selectNameError: createSelector(createSelectorName, (state: InitStateName) => state?.error)
 }
 function clearError() {
     return undefined;

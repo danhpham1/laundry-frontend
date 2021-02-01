@@ -13,6 +13,7 @@ import * as group from './ngrx/reducers/group.reducer';
 import { GroupEffects } from './ngrx/effects/group.effect';
 
 import * as name from './ngrx/reducers/name.reducer';
+import { NameEffects } from './ngrx/effects/name.effect';
 
 import { IAppState } from './ngrx/models/base.model';
 
@@ -47,7 +48,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     MainModule,
     StoreModule.forRoot(Reducers),
-    EffectsModule.forRoot([GroupEffects])
+    EffectsModule.forRoot([GroupEffects,NameEffects])
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
