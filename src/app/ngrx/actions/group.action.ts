@@ -5,6 +5,10 @@ export const GET_GROUP_REQUEST = 'GET_GROUP_REQUEST';
 export const GET_GROUP_SUCCESS = 'GET_GROUP_SUCCESS';
 export const GET_GROUP_FAILED = 'GET_GROUP_FAILED';
 
+export const GET_GROUP_ALL_REQUEST = 'GET_GROUP_ALL_REQUEST';
+export const GET_GROUP_ALL_SUCCESS = 'GET_GROUP_ALL_SUCCESS';
+export const GET_GROUP_ALL_FAILED = 'GET_GROUP_ALL_FAILED';
+
 export const CREATE_GROUP_REQUEST = 'CREATE_GROUP_REQUEST';
 export const CREATE_GROUP_SUCCESS = 'CREATE_GROUP_SUCCESS';
 export const CREATE_GROUP_FAILED = 'CREATE_GROUP_FAILED';
@@ -31,6 +35,24 @@ export class getGroupSuccess implements Action {
 
 export class getGroupFailed implements Action {
     readonly type: string = GET_GROUP_FAILED;
+    constructor(public payload?: any) {
+    }
+}
+
+export class getAllGroupRequest implements Action {
+    readonly type: string = GET_GROUP_ALL_REQUEST;
+    constructor(public payload?:any) {
+    }
+}
+
+export class getAllGroupSuccess implements Action {
+    readonly type: string = GET_GROUP_ALL_SUCCESS;
+    constructor(public payload: any) {
+    }
+}
+
+export class getAllGroupFailed implements Action {
+    readonly type: string = GET_GROUP_ALL_FAILED;
     constructor(public payload?: any) {
     }
 }
@@ -96,6 +118,9 @@ export type GroupActions =
     getGroupRequest |
     getGroupSuccess |
     getGroupFailed |
+    getAllGroupRequest |
+    getAllGroupSuccess |
+    getAllGroupFailed |
     createGroupRequest |
     createGroupSuccess |
     createGroupFailed |

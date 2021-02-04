@@ -55,6 +55,16 @@ export interface IDeleteGroupResponse {
     message: string
 }
 
+export interface IGetAllGroups{
+    success:boolean,
+    data:Array<IGroupAll>
+}
+
+export interface IGroupAll{
+    _id:string,
+    name:string
+}
+
 //interface for name
 export interface IGroupInfo {
     _id: string,

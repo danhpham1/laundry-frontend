@@ -1,7 +1,7 @@
 import { IAppState } from './../models/base.model';
 import { InitStateGroup } from '../models/group.model';
 import { IActions } from './../../@share/models/action.model';
-import { CREATE_GROUP_SUCCESS, GET_GROUP_FAILED, GET_GROUP_SUCCESS, CREATE_GROUP_FAILED, GET_GROUP_REQUEST, CREATE_GROUP_REQUEST, UPDATE_GROUP_SUCCESS, UPDATE_GROUP_FAILED, UPDATE_GROUP_REQUEST, DELETE_GROUP_REQUEST, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAILED } from './../actions/group.action';
+import { CREATE_GROUP_SUCCESS, GET_GROUP_FAILED, GET_GROUP_SUCCESS, CREATE_GROUP_FAILED, GET_GROUP_REQUEST, CREATE_GROUP_REQUEST, UPDATE_GROUP_SUCCESS, UPDATE_GROUP_FAILED, UPDATE_GROUP_REQUEST, DELETE_GROUP_REQUEST, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAILED, GET_GROUP_ALL_REQUEST, GET_GROUP_ALL_SUCCESS, GET_GROUP_ALL_FAILED } from './../actions/group.action';
 import { createSelector } from '@ngrx/store';
 
 const initialSate: InitStateGroup = {
@@ -15,6 +15,10 @@ const initialSate: InitStateGroup = {
     groupCreateResponse: {
         success: false,
         results: {}
+    },
+    allGroups:{
+        success:false,
+        data:[]
     },
     isCreateFailed: false,
     isUpdate: undefined,
@@ -41,6 +45,27 @@ export function groupReducer(state: InitStateGroup = initialSate, action: IActio
             }
         }
         case GET_GROUP_FAILED: {
+            return {
+                ...state,
+                error: action.payload
+            }
+        }
+        case GET_GROUP_ALL_REQUEST: {
+            return {
+                ...state,
+                isCreateFailed: clearIsCreateGroupFailed(),
+                isUpdate: undefined,
+                isDelete: undefined,
+                error: clearError(),
+            }
+        }
+        case GET_GROUP_ALL_SUCCESS: {
+            return {
+                ...state,
+                allGroups: { ...action.payload },
+            }
+        }
+        case GET_GROUP_ALL_FAILED: {
             return {
                 ...state,
                 error: action.payload
@@ -132,6 +157,7 @@ const createSelectorGroup = (state: IAppState) => state.group;
 
 export const groupSelector = {
     selectGroupData: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.groupData),
+    selectAllGroupData: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.allGroups),
     selectCreateGroupResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.groupCreateResponse),
     selectGroupFailed: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.error),
     selectCreateGroupFailedResponse: createSelector(createSelectorGroup, (state: InitStateGroup) => state?.isCreateFailed),

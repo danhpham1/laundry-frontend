@@ -16,7 +16,7 @@ export const environment = {
   APIGetGroups: '/groups',
   APIPatchGroup: '/group/',
   APIDeleteGroup: '/group/',
-
+  APIGetAllGroups:'/groups/all',
 
   //name
   APIGetNames:'/names'

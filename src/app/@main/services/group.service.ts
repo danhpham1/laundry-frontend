@@ -1,6 +1,6 @@
 import { IPageOptions } from './../../@share/models/action.model';
 import { environment } from './../../../environments/environment';
-import { ICreateGroupBody, ICreateGroupResponse, IDeleteGroupBody, IGroupModelGet, IUpdateGroupBody, IDeleteGroupResponse } from './../../@share/models/group.model';
+import { ICreateGroupBody, ICreateGroupResponse, IDeleteGroupBody, IGroupModelGet, IUpdateGroupBody, IDeleteGroupResponse, IGetAllGroups } from './../../@share/models/group.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -20,6 +20,10 @@ export class GroupService {
         ...pageOption?.sort
       }
     });
+  }
+
+  getAllGroups(): Observable<IGetAllGroups> {
+    return this.httpClient.get<IGetAllGroups>(`${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIGetAllGroups}`);
   }
 
   createGroup(body?: ICreateGroupBody) {

@@ -1,3 +1,4 @@
+import { IGetAllGroups } from './../../@share/models/group.model';
 import { GroupService } from './../../@main/services/group.service';
 import { IActions } from './../../@share/models/action.model';
 import { Action } from '@ngrx/store';
@@ -22,6 +23,21 @@ export class GroupEffects {
                 }),
                 catchError((error: any) => {
                     return of(new GroupActions.getGroupFailed(error));
+                })
+            )
+        })
+    )
+    
+    @Effect() getAllGroups: Observable<Action> = this.actions$.pipe(
+        ofType<GroupActions.getAllGroupRequest>(GroupActions.GET_GROUP_ALL_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.groupService.getAllGroups().pipe(
+                switchMap((groupResponse: IGetAllGroups) => {
+                    return of(new GroupActions.getAllGroupSuccess(groupResponse))
+                }),
+                catchError((error: any) => {
+                    return of(new GroupActions.getAllGroupFailed(error));
                 })
             )
         })
