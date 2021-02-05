@@ -115,7 +115,9 @@ export class NameComponent implements OnInit {
     });
     modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
     // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+    modal.afterClose.subscribe(result => {
+      this.distpatchNamesStore();
+    });
   }
   //modal update name component
   updateNameComponentModal(id?: string, price?: string, name?: string, idGroup?: string) {

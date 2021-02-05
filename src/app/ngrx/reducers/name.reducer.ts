@@ -19,6 +19,11 @@ const initialState: InitStateName = {
         prevPage: null,
         nextPage: null
     },
+    isCreateName:{
+        success:false,
+        results:{},
+        error:undefined
+    },
     error: undefined
 }
 
@@ -26,21 +31,7 @@ export function nameReducer(state: InitStateName = initialState, action: IAction
     switch (action.type) {
         case TypeName.GET_NAME_REQUEST:
             return {
-                ...state,
-                nameResponse: {
-                    success: false,
-                    docs: [],
-                    totalDocs: 0,
-                    limit: 10,
-                    page: 1,
-                    totalPages: 1,
-                    pagingCounter: 1,
-                    hasPrevPage: false,
-                    hasNextPage: false,
-                    prevPage: null,
-                    nextPage: null
-                },
-                error: clearError()
+                ...clearState()
             }
         case TypeName.GET_NAME_SUCCESS:
             return {
@@ -56,9 +47,32 @@ export function nameReducer(state: InitStateName = initialState, action: IAction
                     ...action.payload
                 }
             }
+        case TypeName.CREATE_NAME_REQUEST:
+            return {
+                ...clearState()
+            }
+        case TypeName.CREATE_NAME_REQUEST_SUCCESS:
+            return {
+                ...state,
+                isCreateName:{
+                    ...action.payload
+                }
+            }
+        case TypeName.CREATE_NAME_REQUEST_FAILED:
+            return {
+                ...state,
+                isCreateName: {
+                    ...action.payload,
+                    error:true
+                }
+            }
         default:
             return {
                 ...state,
+                isCreateName: {
+                    success: false,
+                    results: {}
+                },
                 error: clearError()
             }
     }
@@ -67,8 +81,33 @@ export function nameReducer(state: InitStateName = initialState, action: IAction
 const createSelectorName = (state: IAppState) => state.name;
 export const nameSelector = {
     selectNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.nameResponse),
+    selectPostNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.isCreateName),
     selectNameError: createSelector(createSelectorName, (state: InitStateName) => state?.error)
 }
 function clearError() {
     return undefined;
+}
+
+function clearState(){
+    return {
+        nameResponse: {
+            success: false,
+            docs: [],
+            totalDocs: 0,
+            limit: 10,
+            page: 1,
+            totalPages: 1,
+            pagingCounter: 1,
+            hasPrevPage: false,
+            hasNextPage: false,
+            prevPage: null,
+            nextPage: null
+        },
+        isCreateName: {
+            success: false,
+            results: {},
+            error:undefined
+        },
+        error: clearError()
+    }
 }

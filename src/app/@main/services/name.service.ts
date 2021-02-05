@@ -1,3 +1,4 @@
+import { ICreateNameResponse, IPostName } from './../../@share/models/name.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,5 +22,12 @@ export class NameService {
     }else{
       return this.httpClient.get<IGetNameResponse>(`${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIGetNames}`);
     }
+  }
+
+  postName(data:IPostName):Observable<ICreateNameResponse>{
+    return this.httpClient.post<ICreateNameResponse>(
+      `${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIPostName}`,
+      {...data}
+    );
   }
 }

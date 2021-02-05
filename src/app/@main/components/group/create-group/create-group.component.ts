@@ -72,7 +72,6 @@ export class CreateGroupComponent implements OnInit {
     let subscribe = this.errorCreateGroupResponse$
       .pipe(take(2))
       .subscribe(rs => {
-        console.log(rs);
         if (rs === false) {
           this.nzMessageService.create('error', 'Tên bị trùng vui lòng nhập tên mới!')
         }

@@ -14,7 +14,7 @@
                 <nz-form-label nzFor="idGroup" nzRequired>Group of Name</nz-form-label>
                 <nz-form-control nzErrorTip="Please select Group of Name!">
                     <nz-select id="idGroup" formControlName="idGroup"
-                        nzPlaceHolder="Select a option and change input text above" (ngModelChange)="genderChange($event)">
+                        nzPlaceHolder="Select a option and change input text above">
                         <ng-container *ngFor="let group of allGroup">
                             <nz-option nzValue="{{group._id}}" nzLabel="{{group.name}}"></nz-option>
                         </ng-container>

@@ -9,7 +9,7 @@ import { switchMap, map, catchError } from 'rxjs/operators';
 import { NameService } from './../../@main/services/name.service';
 import { IActions } from './../../@share/models/action.model';
 import * as NameActions from './../actions/name.action';
-import { IGetNameResponse } from '../../@share/models/name.model';
+import { ICreateNameResponse, IGetNameResponse } from '../../@share/models/name.model';
 
 
 
@@ -25,6 +25,21 @@ export class NameEffects {
                 }),
                 catchError((error: any) => {
                     return of(new NameActions.getNameFailed(error));
+                })
+            )
+        })
+    )
+
+    @Effect() postNames: Observable<Action> = this.actions$.pipe(
+        ofType<NameActions.postNameRequest>(NameActions.TypeName.CREATE_NAME_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.nameService.postName(payload).pipe(
+                switchMap((postNameResponse: ICreateNameResponse) => {
+                    return of(new NameActions.postNameSuccess(postNameResponse))
+                }),
+                catchError((error: any) => {
+                    return of(new NameActions.postNameFailed(error));
                 })
             )
         })

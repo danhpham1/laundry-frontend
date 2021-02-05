@@ -25,3 +25,26 @@ export interface IGetNameResponse {
     prevPage: null,
     nextPage: null
 }
+
+export interface ICreateNameResponse {
+    success:boolean,
+    results:ICreateName | {},
+    error?:any
+}
+
+interface ICreateName{
+    creatAt:Date,
+    updateAt:Date,
+    isHide:boolean,
+    _id:string,
+    name:string,
+    idGroup:string,
+    price:number
+}
+
+export interface IPostName{
+    name:string,
+    idGroup:string,
+    price:number,
+    isHide?:boolean
+}

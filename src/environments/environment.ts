@@ -19,7 +19,8 @@ export const environment = {
   APIGetAllGroups:'/groups/all',
 
   //name
-  APIGetNames:'/names'
+  APIGetNames:'/names',
+  APIPostName:'/names'
 };
 
 /*
