@@ -175,11 +175,11 @@ export class GroupComponent implements OnInit {
       .subscribe(rs => {
         console.log(rs);
         if (rs === true) {
-          this.nzMessageService.create('success', 'Xóa group thành công!');
+          this.nzMessageService.create('success', 'Group delete successful!');
           this.distpatchGetGroupList();
         }
         if (rs === false) {
-          this.nzMessageService.create('error', 'Xóa group thất bại!');
+          this.nzMessageService.create('error', 'Group delete failed!');
         }
       })
     this.subscription.add(groupSubscribe);

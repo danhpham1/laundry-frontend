@@ -36,7 +36,7 @@
                         <div class="name__actionButton">
                             <div>
                                 <button nz-button nzType="primary" [nzBlock]="true"
-                                    (click)="updateNameComponentModal()"><i nz-icon nzType="edit"></i>Edit</button>
+                                    (click)="updateNameComponentModal(data._id,data.price,data.name,data.idGroup)"><i nz-icon nzType="edit"></i>Edit</button>
                             </div>
                             <div>
                                 <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm

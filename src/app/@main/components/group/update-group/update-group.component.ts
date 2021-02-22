@@ -57,7 +57,7 @@ export class UpdateGroupComponent implements OnInit {
     //check name of group not change
     let groupNameValue = this.validateGroupForm.get('nameGroup')?.value;
     if (groupNameValue == this.groupName) {
-      this.nzMessageService.create('warning', 'Vui lòng nhập tên mới của group');
+      this.nzMessageService.create('warning', 'Please input name of group');
     } else {
       if (this.validateGroupForm.valid) {
         this.dispatchUpdateGroup(groupNameValue);
@@ -80,11 +80,11 @@ export class UpdateGroupComponent implements OnInit {
       .pipe(take(2))
       .subscribe(rs => {
         if (rs === true) {
-          this.nzMessageService.create('success', 'Cập nhập tên group thành công!');
+          this.nzMessageService.create('success', 'Group updated successful');
           this.modal.closeAll();
         }
         if (rs === false) {
-          this.nzMessageService.create('error', 'Cập nhập tên group thất bại!');
+          this.nzMessageService.create('error', 'Group updated failed');
         }
       })
     this.subscription.add(groupUpdatesubscribe);

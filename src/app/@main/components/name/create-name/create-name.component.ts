@@ -51,8 +51,8 @@ export class CreateNameComponent implements OnInit {
     })
     this.validateForm = this.fb.group({
       name: [null, [Validators.required]],
+      idGroup: [null, [Validators.required]],
       price: [null, [Validators.required]],
-      idGroup: [null, [Validators.required]]
     })
 
     this.subscribe.add(allGroupObser);
@@ -88,20 +88,10 @@ export class CreateNameComponent implements OnInit {
         this.modal.closeAll();
       }
       if(rs.error === true){
-        this.nzMessageService.create('error', 'Tạo name thất bại');
+        this.nzMessageService.create('error', 'Tạo name thất bại, name bị trùng hoặc không hợp lệ');
       }
     })
 
     this.subscribe.add(createNameSubcribe);
   }
-
-  //handle error
-  // handleErrorCreateName(){
-  //   let errorNameSubcribe = this.error$.pipe(take(2)).subscribe(error=>{
-  //     if(error){
-  //       this.nzMessageService.create('error', 'Tạo name thất bại');
-  //     }
-  //   })
-  //   this.subscribe.add(errorNameSubcribe);
-  // }
 }

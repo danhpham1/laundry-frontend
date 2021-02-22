@@ -73,7 +73,7 @@ export class CreateGroupComponent implements OnInit {
       .pipe(take(2))
       .subscribe(rs => {
         if (rs === false) {
-          this.nzMessageService.create('error', 'Tên bị trùng vui lòng nhập tên mới!')
+          this.nzMessageService.create('error', 'Group has dupliated! Please input again')
         }
       })
     this.subscription.add(subscribe);
@@ -84,7 +84,7 @@ export class CreateGroupComponent implements OnInit {
       .pipe(take(2))
       .subscribe(rs => {
         if (rs.success) {
-          this.nzMessageService.create('success', 'Tạo group thành công!');
+          this.nzMessageService.create('success', 'Group was created!');
           this.modal.closeAll();
         }
       })

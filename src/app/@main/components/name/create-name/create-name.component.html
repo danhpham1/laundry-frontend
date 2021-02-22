@@ -22,9 +22,9 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label nzRequired nzFor="price">Price</nz-form-label>
+                <nz-form-label nzRequired nzFor="price">Price (1000 - 99999 )</nz-form-label>
                 <nz-form-control nzErrorTip="Please Input Price">
-                    <input nz-input formControlName="price" id="price" type="number" pattern="[0-9]*" />
+                    <input nz-input formControlName="price" id="price" type="number" pattern="^[1-9][0-9]{3,4}" />
                 </nz-form-control>
             </nz-form-item>
             <div class="createname__submit">
