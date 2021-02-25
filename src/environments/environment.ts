@@ -20,7 +20,9 @@ export const environment = {
 
   //name
   APIGetNames:'/names',
-  APIPostName:'/names'
+  APIPostName:'/names',
+  APIPatchName:'/name/',
+  APIDeleteName: '/name/',
 };
 
 /*

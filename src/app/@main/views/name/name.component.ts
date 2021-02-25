@@ -14,7 +14,9 @@ import { CreateNameComponent } from './../../components/name/create-name/create-
 import * as nameActions from '../../../ngrx/actions/name.action';
 import { IAppState } from '../../../ngrx/models/base.model';
 import { nameSelector } from './../../../ngrx/reducers/name.reducer';
-import { IGetNameResponse, INameModel } from './../../../@share/models/name.model';
+import { IGetNameResponse, INameModel, IDeleteNameResponse } from './../../../@share/models/name.model';
+import { IDeleteGroupResponse } from 'src/app/@share/models/group.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-name',
@@ -32,6 +34,7 @@ export class NameComponent implements OnInit {
 
   //store
   namesList$: Observable<IGetNameResponse> = this.store.select(nameSelector.selectNameResponse);
+  nameDelete$:Observable<IDeleteNameResponse> = this.store.select(nameSelector.selectDeleteNameResponse);
   error$:Observable<any> = this.store.select(nameSelector.selectNameError);
 
   constructor(
@@ -135,9 +138,11 @@ export class NameComponent implements OnInit {
       ],
       nzWidth: '900px'
     });
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+    // modal.afterOpen.subscribe();
     // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
+    modal.afterClose.subscribe(() => {
+      this.distpatchNamesStore();
+    });
   }
 
   //check error
@@ -149,5 +154,26 @@ export class NameComponent implements OnInit {
       }
     })
     this.subscription.add(subscribeError);
+  }
+
+  //confirm to delete name 
+  deleteName(id:string,idGroup:string){
+    // console.log(id);
+    this.handleDeleteName(id,idGroup);
+  }
+
+  private handleDeleteName(id:string,idGroup:string){
+    this.store.dispatch(new nameActions.deleteNameRequest({ idName: id, idGroup:idGroup }));
+    this.nameDelete$
+    .pipe(take(2))   
+    .subscribe(rs=>{
+      if(rs.success){
+        this.nzMessageService.create('success','Name deleted success!');
+        this.distpatchNamesStore();
+      }
+      if(rs.error){
+        this.nzMessageService.create('error','Name deleted failed!');
+      }
+    })
   }
 }

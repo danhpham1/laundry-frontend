@@ -1,4 +1,4 @@
-import { ICreateNameResponse, IPostName } from './../../@share/models/name.model';
+import { ICreateNameResponse, IPostName, IUpdateName, IUpdateNameResponse, IDeleteNameResponse } from './../../@share/models/name.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -28,6 +28,19 @@ export class NameService {
     return this.httpClient.post<ICreateNameResponse>(
       `${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIPostName}`,
       {...data}
+    );
+  }
+
+  patchName(idName: string, data: IUpdateName): Observable<IUpdateNameResponse> {
+    return this.httpClient.patch<IUpdateNameResponse>(
+      `${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIPatchName}${idName}`,
+      { ...data }
+    );
+  }
+
+  deleteName(idName: string,idGroup:string): Observable<IDeleteNameResponse> {
+    return this.httpClient.delete<IDeleteNameResponse>(
+      `${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIDeleteName}${idName}?idGroup=${idGroup}`,
     );
   }
 }

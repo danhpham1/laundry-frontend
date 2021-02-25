@@ -24,7 +24,10 @@
             <tr *ngFor="let data of fixedTable.data;let i = index">
                 <td>{{i + 1}}</td>
                 <td>{{ data.name }}</td>
-                <td>{{ data.groupInfo[0].name }}</td>
+                <td *ngIf="data.groupInfo.length >= 1;else groupNotFound">{{ data.groupInfo[0].name }}</td>
+                <ng-template #groupNotFound>
+                    <td>No Data</td>
+                </ng-template>
                 <td>{{ data.createAt | date:'short' }}</td>
                 <td>{{ data.price | currency:"VND":"symbol"}}</td>
                 <td>
@@ -41,7 +44,7 @@
                             <div>
                                 <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
                                     nzPopconfirmTitle="Are you sure delete this Group?"
-                                    nzPopconfirmPlacement="bottom"><i nz-icon nzType="delete"></i>Delete</button>
+                                    nzPopconfirmPlacement="bottom" (nzOnConfirm)="deleteName(data._id,data.idGroup)"><i nz-icon nzType="delete"></i>Delete</button>
                             </div>
                         </div>
                     </ng-template>

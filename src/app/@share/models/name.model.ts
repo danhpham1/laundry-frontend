@@ -32,6 +32,7 @@ export interface ICreateNameResponse {
     error?:any
 }
 
+
 interface ICreateName{
     creatAt:Date,
     updateAt:Date,
@@ -41,10 +42,34 @@ interface ICreateName{
     idGroup:string,
     price:number
 }
+export interface IUpdateNameResponse {
+    success:boolean,
+    results: ICreateName | {},
+    error?: any
+}
 
 export interface IPostName{
     name:string,
     idGroup:string,
     price:number,
     isHide?:boolean
+}
+
+export interface IUpdateName{
+    idName:string,
+    body:{
+        name?: string,
+        idGroup?: string,
+        price?: number
+    }
+}
+
+export interface IDeleteNameResponse{
+    success:boolean,
+    message:string,
+    error?:any
+}
+export interface IDeleteName{
+    idName:string,
+    idGroup:string
 }

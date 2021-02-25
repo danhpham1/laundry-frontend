@@ -1,3 +1,4 @@
+import { IUpdateName, IUpdateNameResponse } from './../../../../@share/models/name.model';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -37,6 +38,8 @@ export class UpdateNameComponent implements OnInit {
 
   allGroup$: Observable<IGetAllGroups> = this.store.select(groupSelector.selectAllGroupData);
 
+  updateName$:Observable<IUpdateNameResponse> = this.store.select(nameSelector.selectUpdateNameResponse);
+
   constructor(
     private fb: FormBuilder,
     private store:Store<IAppState>,
@@ -68,9 +71,59 @@ export class UpdateNameComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
+
+    let name = this.validateForm.get('name')?.value;
+    let idGroup = this.validateForm.get('idGroup')?.value;
+    let price = this.validateForm.get('price')?.value;
+
     if (this.validateForm.valid) {
-      console.log(this.validateForm.controls);
+      let flag = false;
+
+      if (this.name != name){
+        flag = true;
+      }
+
+      if (this.idGroup != idGroup) {
+        flag = true;
+      }
+
+      if (this.price != price) {
+        flag = true;
+      }
+
+      if(flag){
+        this.handleUpdateName(name,idGroup,price);
+
+      }else{
+        this.nzMessageService.create('warning','Data of name not change');
+      }
+
     }
+  }
+
+  private handleUpdateName(name?:string,idGroup?:string,price?:number){
+    let objNameUpdate:IUpdateName = {
+      idName:this.idName,
+      body:{
+        name: name,
+        idGroup: idGroup,
+        price: price
+      }
+    }
+    this.store.dispatch(new nameActions.updateNameRequest({...objNameUpdate}));
+    this.handleSubUpdateName();
+  }
+
+  private handleSubUpdateName(){
+    this.updateName$.subscribe(rs=>{
+      if(rs.success){
+        this.nzMessageService.create('success','Name updated success!');
+        this.modal.closeAll();
+      }
+      if(rs.error){
+        this.nzMessageService.create('error','Name updated failed!')
+      }
+    })
   }
 
   //call get all group

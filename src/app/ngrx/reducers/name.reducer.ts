@@ -24,6 +24,16 @@ const initialState: InitStateName = {
         results:{},
         error:undefined
     },
+    isUpdateName: {
+        success: false,
+        results: {},
+        error: undefined
+    },
+    isDeleteName: {
+        success: false,
+        message:'',
+        error: undefined
+    },
     error: undefined
 }
 
@@ -66,6 +76,44 @@ export function nameReducer(state: InitStateName = initialState, action: IAction
                     error:true
                 }
             }
+        case TypeName.UPDATE_NAME_REQUEST:
+            return {
+                ...clearState()
+            }
+        case TypeName.UPDATE_NAME_REQUEST_SUCCESS:
+            return {
+                ...state,
+                isUpdateName: {
+                    ...action.payload
+                }
+            }
+        case TypeName.UPDATE_NAME_REQUEST_FAILED:
+            return {
+                ...state,
+                isUpdateName: {
+                    ...action.payload,
+                    error: true
+                }
+            }
+        case TypeName.DELETE_NAME_REQUEST:
+            return {
+                ...clearState()
+            }
+        case TypeName.DELETE_NAME_REQUEST_SUCCESS:
+            return {
+                ...state,
+                isDeleteName: {
+                    ...action.payload
+                }
+            }
+        case TypeName.DELETE_NAME_REQUEST_FAILED:
+            return {
+                ...state,
+                isUpdateName: {
+                    ...action.payload,
+                    error: true
+                }
+            }
         default:
             return {
                 ...state,
@@ -82,6 +130,8 @@ const createSelectorName = (state: IAppState) => state.name;
 export const nameSelector = {
     selectNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.nameResponse),
     selectPostNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.isCreateName),
+    selectUpdateNameResponse: createSelector(createSelectorName, (state: InitStateName)=> state?.isUpdateName),
+    selectDeleteNameResponse: createSelector(createSelectorName, (state: InitStateName) => state?.isDeleteName),
     selectNameError: createSelector(createSelectorName, (state: InitStateName) => state?.error)
 }
 function clearError() {
@@ -107,6 +157,15 @@ function clearState(){
             success: false,
             results: {},
             error:undefined
+        },
+        isUpdateName: {
+            success: false,
+            results: {},
+            error: undefined
+        },
+        isDeleteName: {
+            success: false,
+            error: undefined
         },
         error: clearError()
     }
