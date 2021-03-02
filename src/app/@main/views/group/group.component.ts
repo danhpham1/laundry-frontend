@@ -33,6 +33,7 @@ export class GroupComponent implements OnInit {
   isLoadingTable!: boolean;
   subscription!: Subscription;
   sort!: ISort;
+  buttoncreateDisable:boolean;
 
 
   searchValue = '';
@@ -48,6 +49,7 @@ export class GroupComponent implements OnInit {
     private nzMessageService: NzMessageService,
     private store: Store<IAppState>
   ) {
+    this.buttoncreateDisable = true;
     this.isLoadingTable = true;
     this.listMockDataGroupDisplay = [];
     this.listDataGroupDisplay = [];
@@ -83,6 +85,7 @@ export class GroupComponent implements OnInit {
         this.currentPage = rs.page;
         this.limit = rs.limit;
         this.total = rs.totalDocs;
+        this.buttoncreateDisable = false;
       }
     })
     this.subscription.add(
@@ -208,6 +211,7 @@ export class GroupComponent implements OnInit {
     const subscribeError = this.error$.subscribe(error => {
       if (error) {
         this.isLoadingTable = false;
+        this.buttoncreateDisable = true;
         this.nzMessageService.create('error', 'Load data from server failed');
       }
     })

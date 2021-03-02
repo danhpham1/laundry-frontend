@@ -2,7 +2,7 @@
 <div class="inner-content name">
     <div class="name__title">
         <h4>Name</h4>
-        <button class="name__addButton" nz-button nzType="primary" (click)="createNameComponentModal()"><i nz-icon
+        <button class="name__addButton" nz-button nzType="primary" [disabled]="buttonCreateDisable" (click)="createNameComponentModal()"><i nz-icon
                 nzType="usergroup-add"></i>Add
             Name</button>
     </div>

@@ -2,7 +2,7 @@
 <div class="inner-content group">
     <div class="group__title">
         <h4>Group</h4>
-        <button class="group__addButton" nz-button nzType="primary" (click)="createGroupComponentModal()"><i nz-icon
+        <button class="group__addButton" nz-button nzType="primary"[disabled]="buttoncreateDisable" (click)="createGroupComponentModal()"><i nz-icon
                 nzType="usergroup-add"></i>Add
             Group</button>
     </div>

@@ -1,1 +1,85 @@
-<p>laundry works!</p>
+<app-breadcrumb [nameBreadcrumb]="'Laundry'"></app-breadcrumb>
+<div class="inner-content name">
+    <div class="laundry__title">
+        <h4>Laundry</h4>
+        <button class="laundry__addButton" nz-button nzType="primary"><i nz-icon nzType="usergroup-add"></i>Add
+            Laundry</button>
+    </div>
+    <nz-table class="laundry__table" #laundryTable [nzScroll]="{ x: '100%', y: '350px' }">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th colspan="2">Name</th>
+                <th colspan="2">Group of Name</th>
+                <th>Weigth</th>
+                <th>Price</th>
+                <th colspan="2">Total</th>
+                <th colspan="2">Date Create</th>
+                <th colspan="2">Creater</th>
+                <th colspan="2">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>1</td>
+            <td colspan="2">asdasdqwheqiwuhe</td>
+            <td colspan="2">Lorem ipsum dolor lorem lorem lorem</td>
+            <td>4.3</td>
+            <td>12000</td>
+            <td colspan="2">48000</td>
+            <td colspan="2">12/02/2021</td>
+            <td colspan="2">Lorem ipsum dolor sit amet.</td>
+            <td colspan="2">
+                <button nz-button nz-popover nzPopoverTrigger="click" nzType="primary" [nzPopoverContent]="contentTemplate"
+                    nzPopoverPlacement="right">
+                    Actions
+                </button>
+                <ng-template #contentTemplate>
+                    <div class="laundry__actionButton">
+                        <div>
+                            <button nz-button nzType="primary" [nzBlock]="true"
+                                ><i nz-icon
+                                    nzType="edit"></i>Edit</button>
+                        </div>
+                        <div>
+                            <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
+                                nzPopconfirmTitle="Are you sure delete this Group?" nzPopconfirmPlacement="bottom"
+                                ><i nz-icon nzType="delete"></i>Delete</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </td>
+
+            <!-- <tr *ngFor="let data of fixedTable.data;let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{ data.name }}</td>
+                <td *ngIf="data.groupInfo.length >= 1;else groupNotFound">{{ data.groupInfo[0].name }}</td>
+                <ng-template #groupNotFound>
+                    <td>No Data</td>
+                </ng-template>
+                <td>{{ data.createAt | date:'short' }}</td>
+                <td>{{ data.price | currency:"VND":"symbol"}}</td>
+                <td>
+                    <button nz-button nz-popover nzPopoverTrigger="click" nzType="primary"
+                        [nzPopoverContent]="contentTemplate" nzPopoverPlacement="right">
+                        Actions
+                    </button>
+                    <ng-template #contentTemplate>
+                        <div class="name__actionButton">
+                            <div>
+                                <button nz-button nzType="primary" [nzBlock]="true"
+                                    (click)="updateNameComponentModal(data._id,data.price,data.name,data.idGroup)"><i
+                                        nz-icon nzType="edit"></i>Edit</button>
+                            </div>
+                            <div>
+                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
+                                    nzPopconfirmTitle="Are you sure delete this Group?" nzPopconfirmPlacement="bottom"
+                                    (nzOnConfirm)="deleteName(data._id,data.idGroup)"><i nz-icon
+                                        nzType="delete"></i>Delete</button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </td>
+            </tr> -->
+        </tbody>
+    </nz-table>
+</div>

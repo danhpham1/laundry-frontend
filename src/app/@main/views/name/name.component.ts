@@ -31,6 +31,7 @@ export class NameComponent implements OnInit {
   pageSize:number;
   total:number;
   pageIndex:number;
+  buttonCreateDisable:boolean;
 
   //store
   namesList$: Observable<IGetNameResponse> = this.store.select(nameSelector.selectNameResponse);
@@ -43,6 +44,7 @@ export class NameComponent implements OnInit {
     private store:Store<IAppState>,
     private nzMessageService: NzMessageService,
   ) {
+    this.buttonCreateDisable = true;
     this.listOfData = [];
     this.isLoadingTable = true;
     this.subscription = new Subscription();
@@ -85,6 +87,8 @@ export class NameComponent implements OnInit {
         this.total = rs.totalDocs;
         this.pageIndex = rs.page;
         this.pageSize = rs.limit;
+
+        this.buttonCreateDisable = false;
       }
     })
     this.subscription.add(nameSubcribe);
@@ -149,6 +153,7 @@ export class NameComponent implements OnInit {
   checkError() {
     const subscribeError = this.error$.subscribe(error => {
       if (error) {
+        this.buttonCreateDisable = true;
         this.isLoadingTable = false;
         this.nzMessageService.create('error', 'Load data from server failed');
       }
