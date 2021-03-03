@@ -19,9 +19,11 @@ import { CreateGroupComponent } from './components/group/create-group/create-gro
 import { UpdateGroupComponent } from './components/group/update-group/update-group.component';
 import { CreateNameComponent } from './components/name/create-name/create-name.component';
 import { UpdateNameComponent } from './components/name/update-name/update-name.component';
+import { CreateLaundryComponent } from './components/laundry/create-laundry/create-laundry.component';
+import { UpdateLaundryComponent } from './components/laundry/update-laundry/update-laundry.component';
 
 @NgModule({
-  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent, CreateNameComponent, UpdateNameComponent],
+  declarations: [MainComponent, SiderComponent, HeaderComponent, DashboardComponent, GroupComponent, NameComponent, LaundryComponent, BreadcrumbComponent, CreateGroupComponent, UpdateGroupComponent, CreateNameComponent, UpdateNameComponent, CreateLaundryComponent, UpdateLaundryComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

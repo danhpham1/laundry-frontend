@@ -2,7 +2,7 @@
 <div class="inner-content name">
     <div class="laundry__title">
         <h4>Laundry</h4>
-        <button class="laundry__addButton" nz-button nzType="primary"><i nz-icon nzType="usergroup-add"></i>Add
+        <button class="laundry__addButton" nz-button nzType="primary" (click)="createLaundryComponentModel()"><i nz-icon nzType="usergroup-add"></i>Add
             Laundry</button>
     </div>
     <nz-table class="laundry__table" #laundryTable [nzScroll]="{ x: '100%', y: '350px' }">
@@ -36,7 +36,7 @@
                 <ng-template #contentTemplate>
                     <div class="laundry__actionButton">
                         <div>
-                            <button nz-button nzType="primary" [nzBlock]="true"
+                            <button nz-button nzType="primary" [nzBlock]="true" (click)="updateLaundryComponentModel()"
                                 ><i nz-icon
                                     nzType="edit"></i>Edit</button>
                         </div>
