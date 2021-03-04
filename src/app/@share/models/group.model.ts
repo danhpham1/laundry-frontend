@@ -1,4 +1,5 @@
 import { NzTableSortFn } from "ng-zorro-antd/table";
+import { INameOfGroup } from "./name.model";
 
 export interface GroupModel {
     _id: string,
@@ -62,7 +63,8 @@ export interface IGetAllGroups{
 
 export interface IGroupAll{
     _id:string,
-    name:string
+    name:string,
+    namesArray: Array<INameOfGroup> | []
 }
 
 //interface for name

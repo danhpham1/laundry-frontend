@@ -46,6 +46,7 @@ export class CreateNameComponent implements OnInit {
   ngOnInit(): void {
     let allGroupObser = this.allGroup$.subscribe(rs=>{
       if(rs.success){
+        console.log(rs.data);
         this.allGroup = rs.data
       }
     })
@@ -82,7 +83,6 @@ export class CreateNameComponent implements OnInit {
   handleCreateName(){
     //succuess
     let createNameSubcribe = this.createName$.pipe(take(2)).subscribe((rs:ICreateNameResponse) =>{
-      console.log(rs);
       if(rs.success && (rs.error === undefined)){
         this.nzMessageService.create('success','Tạo name thành công!');
         this.modal.closeAll();

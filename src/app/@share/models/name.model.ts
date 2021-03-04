@@ -73,3 +73,14 @@ export interface IDeleteName{
     idName:string,
     idGroup:string
 }
+
+
+export interface INameOfGroup{
+    _id: string,
+    createAt: Date,
+    updateAt: Date,
+    isHide: boolean,
+    name: string,
+    idGroup: string,
+    price: number,
+}
