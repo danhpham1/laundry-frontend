@@ -1,7 +1,6 @@
 import { IPostName, IUpdateName, IDeleteName } from './../../@share/models/name.model';
 import { IPageOptions } from './../../@share/models/action.model';
 import { Action } from "@ngrx/store";
-import { deleteGroupFailed, deleteGroupRequest, deleteGroupSuccess, updateGroupFailed, updateGroupRequest, updateGroupSuccess } from './group.action';
 
 export const enum TypeName {
     GET_NAME_REQUEST = 'GET_NAME_REQUEST',
@@ -89,10 +88,10 @@ export type NameActions =
     postNameRequest |
     postNameSuccess |
     postNameFailed |
-    updateGroupRequest |
-    updateGroupSuccess |
-    updateGroupFailed |
-    deleteGroupRequest |
-    deleteGroupSuccess |
-    deleteGroupFailed
+    updateNameRequest |
+    updateNameSuccess |
+    updateNameFailed |
+    deleteNameRequest |
+    deleteNameSuccess |
+    deleteNameFailed
     ;

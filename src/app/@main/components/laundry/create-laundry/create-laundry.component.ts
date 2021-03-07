@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
+
 import { INameOfGroup } from '../../../../@share/models/name.model';
 import { IGroupAll } from '../../../../@share/models/group.model';
-
 @Component({
   selector: 'app-create-laundry',
   templateUrl: './create-laundry.component.html',
@@ -20,7 +22,9 @@ export class CreateLaundryComponent implements OnInit {
   @Input() allGroups!: Array<IGroupAll>;
 
   constructor(
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private nzMessageService: NzMessageService,
+    private modal: NzModalService,
   ) { 
     this.selectedValueGroup = null;
     this.selectedValueName = null;
@@ -44,6 +48,11 @@ export class CreateLaundryComponent implements OnInit {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
+    }
+    if(this.validateForm.controls['weight'].value > 0){
+
+    }else{
+      this.nzMessageService.create('warning','Please input weight again ( > 0 )');
     }
   }
 

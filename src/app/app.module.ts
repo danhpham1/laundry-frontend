@@ -15,6 +15,9 @@ import { GroupEffects } from './ngrx/effects/group.effect';
 import * as name from './ngrx/reducers/name.reducer';
 import { NameEffects } from './ngrx/effects/name.effect';
 
+import * as laundry from './ngrx/reducers/laundry.reducer';
+import { LaundryEffects } from './ngrx/effects/laundry.effect';
+
 import { IAppState } from './ngrx/models/base.model';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -29,7 +32,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 export const Reducers: ActionReducerMap<IAppState, any> = {
   group: group.groupReducer,
-  name: name.nameReducer
+  name: name.nameReducer,
+  laundry:laundry.laundryReducer
 }
 
 const EFFECTS_LIST: Array<any> = [GroupEffects];
@@ -48,7 +52,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     MainModule,
     StoreModule.forRoot(Reducers),
-    EffectsModule.forRoot([GroupEffects,NameEffects])
+    EffectsModule.forRoot([GroupEffects,NameEffects,LaundryEffects])
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
