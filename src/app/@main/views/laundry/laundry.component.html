@@ -51,39 +51,6 @@
                     </ng-template>
                 </td>
             </tr>
-            
-
-            <!-- <tr *ngFor="let data of fixedTable.data;let i = index">
-                <td>{{i + 1}}</td>
-                <td>{{ data.name }}</td>
-                <td *ngIf="data.groupInfo.length >= 1;else groupNotFound">{{ data.groupInfo[0].name }}</td>
-                <ng-template #groupNotFound>
-                    <td>No Data</td>
-                </ng-template>
-                <td>{{ data.createAt | date:'short' }}</td>
-                <td>{{ data.price | currency:"VND":"symbol"}}</td>
-                <td>
-                    <button nz-button nz-popover nzPopoverTrigger="click" nzType="primary"
-                        [nzPopoverContent]="contentTemplate" nzPopoverPlacement="right">
-                        Actions
-                    </button>
-                    <ng-template #contentTemplate>
-                        <div class="name__actionButton">
-                            <div>
-                                <button nz-button nzType="primary" [nzBlock]="true"
-                                    (click)="updateNameComponentModal(data._id,data.price,data.name,data.idGroup)"><i
-                                        nz-icon nzType="edit"></i>Edit</button>
-                            </div>
-                            <div>
-                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
-                                    nzPopconfirmTitle="Are you sure delete this Group?" nzPopconfirmPlacement="bottom"
-                                    (nzOnConfirm)="deleteName(data._id,data.idGroup)"><i nz-icon
-                                        nzType="delete"></i>Delete</button>
-                            </div>
-                        </div>
-                    </ng-template>
-                </td>
-            </tr> -->
         </tbody>
     </nz-table>
 </div>

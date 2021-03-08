@@ -4,8 +4,17 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
+import { Observable, Subscription } from 'rxjs';
+
+import { Store } from '@ngrx/store';
+
 import { INameOfGroup } from '../../../../@share/models/name.model';
 import { IGroupAll } from '../../../../@share/models/group.model';
+import { IAppState } from '../../../../ngrx/models/base.model';
+
+import { IPostLaundry, IPostLaundryResponse } from './../../../../@share/models/laundry.model';
+import  * as laundryActions from '../../../../ngrx/actions/laundry.action';
+import { laundrySelector } from './../../../../ngrx/reducers/laundry.reducer';
 @Component({
   selector: 'app-create-laundry',
   templateUrl: './create-laundry.component.html',
@@ -18,6 +27,9 @@ export class CreateLaundryComponent implements OnInit {
   isDisableSelectName:boolean;
   isLoading:boolean;
   arrNames: Array<INameOfGroup> | [];
+  subscription:Subscription;
+
+  laundryPost$:Observable<IPostLaundryResponse> = this.store.select(laundrySelector.selectLaundryPost);
  
   @Input() allGroups!: Array<IGroupAll>;
 
@@ -25,12 +37,14 @@ export class CreateLaundryComponent implements OnInit {
     private fb:FormBuilder,
     private nzMessageService: NzMessageService,
     private modal: NzModalService,
+    private store:Store<IAppState>
   ) { 
     this.selectedValueGroup = null;
     this.selectedValueName = null;
     this.isDisableSelectName = true;
     this.arrNames = [];
     this.isLoading = false;
+    this.subscription = new Subscription();
   }
 
   ngOnInit(): void {
@@ -43,6 +57,12 @@ export class CreateLaundryComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.subscription.unsubscribe();
+  }
+
   //submit form 
   submitForm() {
     for (const i in this.validateForm.controls) {
@@ -50,10 +70,25 @@ export class CreateLaundryComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if(this.validateForm.controls['weight'].value > 0){
-
+      this.handleDistpatchPostLaundry(this.validateForm.getRawValue());
     }else{
       this.nzMessageService.create('warning','Please input weight again ( > 0 )');
     }
+  }
+
+  handleDistpatchPostLaundry(bodyLaundry:IPostLaundry){
+    this.store.dispatch(new laundryActions.postLaundryRequest({...bodyLaundry}));
+    let postLaundrySub = this.laundryPost$.subscribe(laundryRes=>{
+      console.log(laundryRes);
+      if(laundryRes.success){
+        this.modal.closeAll();
+        this.nzMessageService.create('success','Laundry created success!');
+      }
+      if(laundryRes.error){
+        this.nzMessageService.create('error', 'Laundrycreated failed!');
+      }
+    });
+    this.subscription.add(postLaundrySub);
   }
 
   //event change select group

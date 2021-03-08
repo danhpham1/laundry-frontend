@@ -25,7 +25,8 @@ export const environment = {
   APIDeleteName: '/name/',
 
   //Laundry
-  APIGetLaundry:'/laundries'
+  APIGetLaundry:'/laundries',
+  APIPostLaundry:'/laundries'
 };
 
 /*

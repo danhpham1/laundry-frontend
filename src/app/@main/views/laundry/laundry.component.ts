@@ -90,7 +90,10 @@ export class LaundryComponent implements OnInit {
     modalCreateLaundry.afterOpen.subscribe(() => { });
     // Return a result when closed
     modalCreateLaundry.afterClose.subscribe(result => {
-     
+      this.getAllLaundry({
+        currentPage: this.pageIndex,
+        limit: this.pageSize
+      })
     });
   }
 
@@ -106,6 +109,7 @@ export class LaundryComponent implements OnInit {
     modalUpdateLaundry.afterOpen.subscribe(() => { });
     // Return a result when closed
     modalUpdateLaundry.afterClose.subscribe(result => {
+      
     });
   }
 
@@ -152,7 +156,6 @@ export class LaundryComponent implements OnInit {
         this.pageIndex = rs.page;
         this.isLoadingTable = false;
         this.buttonCreateDisable = false;
-        this.nzMessageService.create('success', 'Load data from server success!');
       }
     })
     this.subscribe.add(laundryDataSub);
