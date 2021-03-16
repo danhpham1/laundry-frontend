@@ -97,11 +97,20 @@ export class LaundryComponent implements OnInit {
     });
   }
 
-  updateLaundryComponentModel(name?:string,group?:string,price?:number,weight?:number,total?:number){
+  updateLaundryComponentModel(id?:string,name?:string,group?:string,price?:number,weight?:number,total?:number){
     const modalUpdateLaundry = this.modal.create({
       nzTitle: 'Update Laundry',
       nzContent: UpdateLaundryComponent,
       nzViewContainerRef: this.viewContainerRef,
+      nzComponentParams:{
+        id:id,
+        name:name,
+        group:group,
+        price:price,
+        weight:weight,
+        total:total,
+        allGroups: this.allGroup
+      },
       nzFooter: [
       ],
       nzWidth: '900px'
@@ -109,7 +118,10 @@ export class LaundryComponent implements OnInit {
     modalUpdateLaundry.afterOpen.subscribe(() => { });
     // Return a result when closed
     modalUpdateLaundry.afterClose.subscribe(result => {
-      
+      this.getAllLaundry({
+        currentPage: this.pageIndex,
+        limit: this.pageSize
+      })
     });
   }
 

@@ -3,5 +3,6 @@ import { IGetLaundryResponse, IPostLaundryResponse } from "../../@share/models/l
 export interface InitStateLaundry {
     laundryData: IGetLaundryResponse,
     laundryPost: IPostLaundryResponse,
+    laundryPatch: IPostLaundryResponse,
     error:any
 }

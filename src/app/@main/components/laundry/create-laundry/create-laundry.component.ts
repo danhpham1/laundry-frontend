@@ -70,7 +70,9 @@ export class CreateLaundryComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
     if(this.validateForm.controls['weight'].value > 0){
-      this.handleDistpatchPostLaundry(this.validateForm.getRawValue());
+      if(this.validateForm.valid){
+        this.handleDistpatchPostLaundry(this.validateForm.getRawValue());
+      }
     }else{
       this.nzMessageService.create('warning','Please input weight again ( > 0 )');
     }

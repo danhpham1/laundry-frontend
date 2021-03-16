@@ -39,7 +39,7 @@
                     <ng-template #contentTemplate>
                         <div class="laundry__actionButton">
                             <div>
-                                <button nz-button nzType="primary" [nzBlock]="true" (click)="updateLaundryComponentModel()"><i nz-icon
+                                <button nz-button nzType="primary" [nzBlock]="true" (click)="updateLaundryComponentModel(data._id,data.name,data.group,data.price,data.weight,data.total)"><i nz-icon
                                         nzType="edit"></i>Edit</button>
                             </div>
                             <div>

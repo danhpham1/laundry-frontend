@@ -23,6 +23,11 @@ const initialSate: InitStateLaundry = {
         message:'',
         error:undefined
     },
+    laundryPatch: {
+        success: false,
+        message: '',
+        error: undefined
+    },
     error:undefined
 }
 
@@ -72,6 +77,21 @@ export function laundryReducer(state: InitStateLaundry = initialSate, action: IA
                 ...state,
                 laundryPost:action.payload
             }
+        case laundryActions.TypeName.UPDATE_LAUNDRY_REQUEST:
+            return {
+                ...state,
+                laundryPatch: clearStatePostLaundry()
+            }
+        case laundryActions.TypeName.UPDATE_LAUNDRY_REQUEST_SUCCESS:
+            return {
+                ...state,
+                laundryPatch: action.payload
+            }
+        case laundryActions.TypeName.UPDATE_LAUNDRY_REQUEST_FAILED:
+            return {
+                ...state,
+                laundryPatch: action.payload
+            }
         default:
             return {
                 ...state,
@@ -89,6 +109,7 @@ export function laundryReducer(state: InitStateLaundry = initialSate, action: IA
                     nextPage: null
                 },
                 laundryPost:clearStatePostLaundry(),
+                laundryPatch:clearStatePostLaundry(),
                 error:clearError()
             }; 
     }
@@ -99,6 +120,7 @@ const createLaudryGroup = (state: IAppState) => state.laundry;
 export const laundrySelector = {
     selectLaundryData: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryData),
     selectLaundryPost: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryPost),
+    selectLaundryPatch: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryPatch),
     selectError: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.error)
 }
 

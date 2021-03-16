@@ -1,4 +1,4 @@
-import { IPostLaundry, IPostLaundryResponse } from './../../@share/models/laundry.model';
+import { IPostLaundry, IPostLaundryResponse, IPatchLaundry } from './../../@share/models/laundry.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -32,4 +32,14 @@ export class LaundryService {
             }
         )
     }
+
+    patchLaundry(laundryPatch: IPatchLaundry) {
+        console.log(laundryPatch)
+        return this.httpClient.patch<IPostLaundryResponse>(`${environment.APIEndpoint}${environment.APIPrefix}${environment.APIVersion}${environment.APIPatchLaundry}${laundryPatch.id}`,
+            {
+                ...laundryPatch.body
+            }
+        )
+    }
+
 }

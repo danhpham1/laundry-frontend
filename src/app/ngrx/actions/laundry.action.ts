@@ -1,4 +1,4 @@
-import { IPostLaundry } from './../../@share/models/laundry.model';
+import { IPostLaundry, IPatchLaundry } from './../../@share/models/laundry.model';
 import { IPageOptions } from './../../@share/models/action.model';
 import { Action } from "@ngrx/store";
 
@@ -11,9 +11,9 @@ export const enum TypeName {
     CREATE_LAUNDRY_REQUEST_SUCCESS = 'CREATE_LAUNDRY_REQUEST_SUCCESS',
     CREATE_LAUNDRY_REQUEST_FAILED = 'CREATE_LAUNDRY_REQUEST_FAILED',
 
-    // UPDATE_NAME_REQUEST = 'UPDATE_NAME_REQUEST',
-    // UPDATE_NAME_REQUEST_SUCCESS = 'UPDATE_NAME_REQUEST_SUCCESS',
-    // UPDATE_NAME_REQUEST_FAILED = 'UPDATE_NAME_REQUEST_FAILED',
+    UPDATE_LAUNDRY_REQUEST = 'UPDATE_LAUNDRY_REQUEST',
+    UPDATE_LAUNDRY_REQUEST_SUCCESS = 'UPDATE_LAUNDRY_REQUEST_SUCCESS',
+    UPDATE_LAUNDRY_REQUEST_FAILED = 'UPDATE_LAUNDRY_REQUEST_FAILED',
 
     // DELETE_NAME_REQUEST = 'DELETE_NAME_REQUEST',
     // DELETE_NAME_REQUEST_SUCCESS = 'DELETE_NAME_REQUEST_SUCCESS',
@@ -48,6 +48,21 @@ export class postLaundrySuccess implements Action {
 
 export class postLaundryFailed implements Action {
     readonly type: string = TypeName.CREATE_LAUNDRY_REQUEST_FAILED;
+    constructor(public payload?: any) { }
+}
+
+export class patchLaundryRequest implements Action {
+    readonly type: string = TypeName.UPDATE_LAUNDRY_REQUEST;
+    constructor(public payload: IPatchLaundry) { }
+}
+
+export class patchLaundrySuccess implements Action {
+    readonly type: string = TypeName.UPDATE_LAUNDRY_REQUEST_SUCCESS;
+    constructor(public payload?: any) { }
+}
+
+export class patchLaundryFailed implements Action {
+    readonly type: string = TypeName.UPDATE_LAUNDRY_REQUEST_FAILED;
     constructor(public payload?: any) { }
 }
 

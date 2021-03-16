@@ -46,6 +46,21 @@ export class LaundryEffects {
         })
     )
 
+    @Effect() patchLaundry: Observable<Action> = this.actions$.pipe(
+        ofType<laundryActions.patchLaundryRequest>(laundryActions.TypeName.UPDATE_LAUNDRY_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.laundryService.patchLaundry({ ...payload }).pipe(
+                switchMap((postLaundryResponse: IPostLaundryResponse) => {
+                    return of(new laundryActions.patchLaundrySuccess(postLaundryResponse))
+                }),
+                catchError((error: any) => {
+                    return of(new laundryActions.patchLaundryFailed(error));
+                })
+            )
+        })
+    )
+
     constructor(
         private actions$: Actions,
         private laundryService: LaundryService

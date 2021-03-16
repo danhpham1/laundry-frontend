@@ -18,6 +18,17 @@ export interface IPostLaundry{
     total:number
 }
 
+export interface IPatchLaundry{
+    id:string,
+    body:{
+        group?: string,
+        name?: string,
+        weight?: number,
+        price?: number,
+        total?: number
+    }
+}
+
 export interface IGetLaundryResponse{
     success: boolean,
     docs: Array<ILaundry> | [],

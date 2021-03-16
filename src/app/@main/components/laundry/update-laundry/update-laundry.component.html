@@ -1,29 +1,26 @@
 <div class="updatelaundry">
     <h3 class="updatelaundry__title">
-        Laundry Create
+        Laundry Update
     </h3>
     <div class="updatelaundry__form">
         <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'" (ngSubmit)="submitForm()">
             <nz-form-item>
                 <nz-form-label nzFor="group" nzRequired>Group of Name</nz-form-label>
                 <nz-form-control nzErrorTip="Please select Group of Name!">
-                    <nz-select id="group" formControlName="group" nzShowSearch nzAllowClear
-                        nzPlaceHolder="Select a group" [(ngModel)]="selectedValueGroup">
-                        <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                        <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                        <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                    <nz-select id="group" formControlName="group" nzShowSearch nzAllowClear nzPlaceHolder="Select a group"
+                         (ngModelChange)="changeSelectGroup($event)">
+                        <nz-option *ngFor="let group of allGroups" nzValue="{{group.name}}" nzLabel="{{group.name}}" ></nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
-                <nz-form-label nzFor="name" nzRequired>Name of Name</nz-form-label>
+                <nz-form-label nzFor="name" nzRequired>Name</nz-form-label>
                 <nz-form-control nzErrorTip="Please select Name!">
                     <nz-select id="name" formControlName="name" nzShowSearch nzAllowClear nzPlaceHolder="Select a name"
-                        [(ngModel)]="selectedValueName">
-                        <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                        <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                        <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                         [nzDisabled]="isDisableSelectName" [nzLoading]="isLoading"
+                        (ngModelChange)="changeSelectName($event)">
+                        <nz-option *ngFor="let name of arrNames" nzValue="{{name.name}}" nzLabel="{{name.name}}"></nz-option>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
@@ -31,7 +28,7 @@
             <nz-form-item>
                 <nz-form-label nzRequired nzFor="weight">Weight</nz-form-label>
                 <nz-form-control nzErrorTip="Please Input Weight">
-                    <input nz-input formControlName="weight" id="weight" type="number" />
+                    <input nz-input formControlName="weight" id="weight" type="number" (ngModelChange)="changeInputWeight($event)" />
                 </nz-form-control>
             </nz-form-item>
 
