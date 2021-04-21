@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -98,7 +99,7 @@ export class UpdateLaundryComponent implements OnInit {
   //handle update
   private handleUpdateLaundry(body:IPatchLaundry){
     this.store.dispatch(new laundryActions.patchLaundryRequest(body));
-    let laundryPatchSub = this.laundryPatch$.subscribe(rs=>{
+    let laundryPatchSub = this.laundryPatch$.pipe(take(2)).subscribe(rs=>{
       if(rs.success && rs.error === undefined){
         this.nzMessageService.create('success','Laundry updated success!');
         this.modal.closeAll();

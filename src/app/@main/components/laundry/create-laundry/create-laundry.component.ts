@@ -15,6 +15,7 @@ import { IAppState } from '../../../../ngrx/models/base.model';
 import { IPostLaundry, IPostLaundryResponse } from './../../../../@share/models/laundry.model';
 import  * as laundryActions from '../../../../ngrx/actions/laundry.action';
 import { laundrySelector } from './../../../../ngrx/reducers/laundry.reducer';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-create-laundry',
   templateUrl: './create-laundry.component.html',
@@ -80,7 +81,7 @@ export class CreateLaundryComponent implements OnInit {
 
   handleDistpatchPostLaundry(bodyLaundry:IPostLaundry){
     this.store.dispatch(new laundryActions.postLaundryRequest({...bodyLaundry}));
-    let postLaundrySub = this.laundryPost$.subscribe(laundryRes=>{
+    let postLaundrySub = this.laundryPost$.pipe(take(2)).subscribe(laundryRes=>{
       console.log(laundryRes);
       if(laundryRes.success){
         this.modal.closeAll();

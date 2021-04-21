@@ -43,7 +43,7 @@
                                         nzType="edit"></i>Edit</button>
                             </div>
                             <div>
-                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm
+                                <button nz-button nzType="primary" [nzBlock]="true" nzDanger nz-popconfirm (nzOnConfirm)="confirm(data._id)"
                                     nzPopconfirmTitle="Are you sure delete this Group?" nzPopconfirmPlacement="bottom"><i nz-icon
                                         nzType="delete"></i>Delete</button>
                             </div>

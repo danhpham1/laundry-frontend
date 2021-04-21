@@ -115,7 +115,7 @@ export class UpdateNameComponent implements OnInit {
   }
 
   private handleSubUpdateName(){
-    this.updateName$.subscribe(rs=>{
+    this.updateName$.pipe(take(2)).subscribe(rs=>{
       if(rs.success){
         this.nzMessageService.create('success','Name updated success!');
         this.modal.closeAll();

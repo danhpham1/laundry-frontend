@@ -1,6 +1,7 @@
-import { IPostLaundry, IPatchLaundry } from './../../@share/models/laundry.model';
+import { IPostLaundry, IPatchLaundry, IDeleteLaundry } from './../../@share/models/laundry.model';
 import { IPageOptions } from './../../@share/models/action.model';
 import { Action } from "@ngrx/store";
+import { deleteNameFailed, deleteNameRequest, deleteNameSuccess } from './name.action';
 
 export const enum TypeName {
     GET_LAUNDRY_REQUEST = 'GET_LAUNDRY_REQUEST',
@@ -15,9 +16,9 @@ export const enum TypeName {
     UPDATE_LAUNDRY_REQUEST_SUCCESS = 'UPDATE_LAUNDRY_REQUEST_SUCCESS',
     UPDATE_LAUNDRY_REQUEST_FAILED = 'UPDATE_LAUNDRY_REQUEST_FAILED',
 
-    // DELETE_NAME_REQUEST = 'DELETE_NAME_REQUEST',
-    // DELETE_NAME_REQUEST_SUCCESS = 'DELETE_NAME_REQUEST_SUCCESS',
-    // DELETE_NAME_REQUEST_FAILED = 'DELETE_NAME_REQUEST_FAILED',
+    DELETE_LAUNDRY_REQUEST = 'DELETE_LAUNDRY_REQUEST',
+    DELETE_LAUNDRY_REQUEST_SUCCESS = 'DELETE_LAUNDRY_REQUEST_SUCCESS',
+    DELETE_LAUNDRY_REQUEST_FAILED = 'DELETE_LAUNDRY_REQUEST_FAILED',
 
 }
 
@@ -66,6 +67,20 @@ export class patchLaundryFailed implements Action {
     constructor(public payload?: any) { }
 }
 
+export class deleteLaundryRequest implements Action {
+    readonly type: string = TypeName.DELETE_LAUNDRY_REQUEST;
+    constructor(public payload: IDeleteLaundry) { }
+}
+
+export class deleteLaundrySuccess implements Action {
+    readonly type: string = TypeName.DELETE_LAUNDRY_REQUEST_SUCCESS;
+    constructor(public payload?: any) { }
+}
+
+export class deleteLaundryFailed implements Action {
+    readonly type: string = TypeName.DELETE_LAUNDRY_REQUEST_FAILED;
+    constructor(public payload?: any) { }
+}
 
 export type NameActions =
     getLaundryRequest |
@@ -73,5 +88,8 @@ export type NameActions =
     getLaundryFailed |
     postLaundryRequest |
     postLaundrySuccess|
-    postLaundryFailed
+    postLaundryFailed |
+    deleteNameRequest |
+    deleteNameSuccess |
+    deleteNameFailed
     ;

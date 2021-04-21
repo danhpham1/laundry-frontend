@@ -48,3 +48,7 @@ export interface IPostLaundryResponse{
     message:string,
     error?:any
 }
+
+export interface IDeleteLaundry{
+    id:string
+}

@@ -28,6 +28,7 @@ export const environment = {
   APIGetLaundry:'/laundries',
   APIPostLaundry: '/laundries',
   APIPatchLaundry: '/laundry/',
+  APIDeleteLaundry: '/laundry/',
 
 };
 

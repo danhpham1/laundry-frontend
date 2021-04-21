@@ -28,6 +28,11 @@ const initialSate: InitStateLaundry = {
         message: '',
         error: undefined
     },
+    laundryDelete:{
+        success: false,
+        message: '',
+        error: undefined
+    },
     error:undefined
 }
 
@@ -92,6 +97,21 @@ export function laundryReducer(state: InitStateLaundry = initialSate, action: IA
                 ...state,
                 laundryPatch: action.payload
             }
+        case laundryActions.TypeName.DELETE_LAUNDRY_REQUEST:
+            return {
+                ...state,
+                laundryDelete: clearStatePostLaundry()
+            }
+        case laundryActions.TypeName.DELETE_LAUNDRY_REQUEST_SUCCESS:
+            return {
+                ...state,
+                laundryDelete: action.payload
+            }
+        case laundryActions.TypeName.DELETE_LAUNDRY_REQUEST_FAILED:
+            return {
+                ...state,
+                laundryDelete: action.payload
+            }
         default:
             return {
                 ...state,
@@ -110,6 +130,7 @@ export function laundryReducer(state: InitStateLaundry = initialSate, action: IA
                 },
                 laundryPost:clearStatePostLaundry(),
                 laundryPatch:clearStatePostLaundry(),
+                laundryDelete:clearStatePostLaundry(),
                 error:clearError()
             }; 
     }
@@ -121,6 +142,7 @@ export const laundrySelector = {
     selectLaundryData: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryData),
     selectLaundryPost: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryPost),
     selectLaundryPatch: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryPatch),
+    selectLaundryDelete: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.laundryDelete),
     selectError: createSelector(createLaudryGroup, (state: InitStateLaundry) => state?.error)
 }
 

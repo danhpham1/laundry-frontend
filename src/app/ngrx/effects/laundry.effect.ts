@@ -61,6 +61,21 @@ export class LaundryEffects {
         })
     )
 
+    @Effect() deleteLaundry: Observable<Action> = this.actions$.pipe(
+        ofType<laundryActions.deleteLaundryRequest>(laundryActions.TypeName.DELETE_LAUNDRY_REQUEST),
+        map((action: IActions) => action?.payload),
+        switchMap((payload) => {
+            return this.laundryService.deleteLaundry({ ...payload }).pipe(
+                switchMap((postLaundryResponse: IPostLaundryResponse) => {
+                    return of(new laundryActions.deleteLaundrySuccess(postLaundryResponse))
+                }),
+                catchError((error: any) => {
+                    return of(new laundryActions.deleteLaundryFailed(error));
+                })
+            )
+        })
+    )
+
     constructor(
         private actions$: Actions,
         private laundryService: LaundryService

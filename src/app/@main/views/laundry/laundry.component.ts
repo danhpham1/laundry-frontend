@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { IPageOptions } from './../../../@share/models/action.model';
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 
@@ -20,7 +21,7 @@ import * as groupActions from '../../../ngrx/actions/group.action';
 
 import * as laundryActions from '../../../ngrx/actions/laundry.action';
 import { laundrySelector } from './../../../ngrx/reducers/laundry.reducer';
-import { IGetLaundryResponse, ILaundry } from 'src/app/@share/models/laundry.model';
+import { IGetLaundryResponse, ILaundry, IPostLaundryResponse } from 'src/app/@share/models/laundry.model';
 
 @Component({
   selector: 'app-laundry',
@@ -40,6 +41,8 @@ export class LaundryComponent implements OnInit {
   allGroup$: Observable<IGetAllGroups> = this.store.select(groupSelector.selectAllGroupData);
   laundryData$:Observable<IGetLaundryResponse> = this.store.select(laundrySelector.selectLaundryData);
   error$: Observable<any> = this.store.select(laundrySelector.selectError);
+
+  laundryDelete$:Observable<IPostLaundryResponse> = this.store.select(laundrySelector.selectLaundryDelete);
 
 
   constructor(
@@ -183,5 +186,27 @@ export class LaundryComponent implements OnInit {
       }
     })
     this.subscribe.add(errorSub);
+  }
+
+  //delete confirm
+  confirm(id:string){
+    this.handleDeleteLaundry(id);
+  }
+
+  private handleDeleteLaundry(id:string){
+    this.store.dispatch(new laundryActions.deleteLaundryRequest({id:id}));
+    let laundryDeleteSub = this.laundryDelete$.pipe(take(2)).subscribe(rs=>{
+      if(rs.success && rs.error === undefined){
+        this.nzMessageService.create('success','Laundry deleted successd!');
+        this.getAllLaundry({
+          currentPage: this.pageIndex,
+          limit: this.pageSize
+        })
+      }
+      if(rs.error){
+        this.nzMessageService.create('error', 'Laundry deleted failed!');
+      }
+    })
+    this.subscribe.add(laundryDeleteSub);
   }
 }
