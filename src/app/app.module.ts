@@ -18,6 +18,9 @@ import { NameEffects } from './ngrx/effects/name.effect';
 import * as laundry from './ngrx/reducers/laundry.reducer';
 import { LaundryEffects } from './ngrx/effects/laundry.effect';
 
+import * as user from './ngrx/reducers/user.reducer';
+// import { LaundryEffects } from './ngrx/effects/laundry.effect';
+
 import { IAppState } from './ngrx/models/base.model';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -33,7 +36,8 @@ import { AppRoutingModule } from './app-routing.module';
 export const Reducers: ActionReducerMap<IAppState, any> = {
   group: group.groupReducer,
   name: name.nameReducer,
-  laundry:laundry.laundryReducer
+  laundry:laundry.laundryReducer,
+  user:user.userReducer
 }
 
 const EFFECTS_LIST: Array<any> = [GroupEffects];

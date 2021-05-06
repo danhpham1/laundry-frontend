@@ -30,6 +30,9 @@ export const environment = {
   APIPatchLaundry: '/laundry/',
   APIDeleteLaundry: '/laundry/',
 
+  //user
+  APIPostUser:'/users'
+
 };
 
 /*

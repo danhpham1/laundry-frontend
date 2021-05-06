@@ -2,17 +2,36 @@
     <div class="login__title">
         <h2>Sign in</h2>
     </div>
-    <div class="login__form">
+    <form class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="login__form__items">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" formControlName="username">
+            <ng-container
+                *ngIf="!this.loginForm.controls['username'].dirty && !this.loginForm.controls['username'].untouched">
+                <span class="error">Vui lòng nhập username</span>
+            </ng-container>
         </div>
         <div class="login__form__items">
             <label for="password">Password</label>
-            <input type="text" id="password" name="password">
+            <input type="password" id="password" name="password" formControlName="password">
+            <ng-container *ngIf="!this.loginForm.controls['password'].dirty && !this.loginForm.controls['password'].untouched">
+                <span class="error">Vui lòng nhập password</span>
+            </ng-container>
+            <ng-container *ngIf="this.loginForm.controls['password'].invalid && !this.loginForm.controls['password'].untouched && this.loginForm.controls['password'].dirty">
+                <span class="error">Độ dài password phải nhiều hơn 5 ký tự. Vui lòng nhập lại</span>
+            </ng-container>
         </div>
         <div class="login__form__items">
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
         </div>
+    </form>
+    <div class="login__register">
+        <span>
+            Not a member?
+        </span>
+
+        <a routerLink="/auth/register">
+            Sign up now
+        </a>
     </div>
 </div>

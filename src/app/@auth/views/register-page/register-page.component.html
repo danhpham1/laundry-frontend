@@ -1,1 +1,50 @@
-<p>register-page works!</p>
+<div class="login">
+    <div class="login__title">
+        <h2>Sign Up</h2>
+    </div>
+    <form class="login__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="login__form__items">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" formControlName="username">
+            <ng-container *ngIf="(!this.registerForm.controls['username'].dirty && !this.registerForm.controls['username'].untouched) || (this.registerForm.controls['username'].errors?.required && this.registerForm.controls['username'].dirty)">
+                <span class="error">Vui lòng nhập username</span>
+            </ng-container>
+        </div>
+        <div class="login__form__items">
+            <label for="password">Mật Khẩu</label>
+            <input type="password" id="password" name="password" formControlName="password">
+            <ng-container *ngIf="(!this.registerForm.controls['password'].dirty && !this.registerForm.controls['password'].untouched) || (this.registerForm.controls['password'].errors?.required && this.registerForm.controls['password'].dirty)">
+                <span class="error">Vui lòng nhập mật khẩu</span>
+            </ng-container>
+        </div>
+        <div class="login__form__items">
+            <label for="name">Tên</label>
+            <input type="text" id="name" name="name" formControlName="name">
+            <ng-container *ngIf="(!this.registerForm.controls['name'].dirty && !this.registerForm.controls['name'].untouched) || (this.registerForm.controls['name'].errors?.required && this.registerForm.controls['name'].dirty)">
+                <span class="error">Vui lòng nhập tên</span>
+            </ng-container>
+        </div>
+        <div class="login__form__items">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" formControlName="email">
+            <ng-container *ngIf="(!this.registerForm.controls['email'].dirty && !this.registerForm.controls['email'].untouched) || (this.registerForm.controls['email'].errors?.required && this.registerForm.controls['email'].dirty)">
+                <span class="error">Vui lòng nhập email</span>
+            </ng-container>
+            <ng-container *ngIf="this.registerForm.controls['email'].errors?.pattern && this.registerForm.controls['email'].touched && this.registerForm.controls['email'].dirty">
+                <span class="error">Email nhập không đúng định dạng. Vui lòng nhập lại</span>
+            </ng-container>
+        </div>
+        <div class="login__form__items">
+            <button type="submit">Sign Up</button>
+        </div>
+    </form>
+    <div class="login__register">
+        <span>
+            Have a member
+        </span>
+
+        <a routerLink="/auth">
+            Sign in now
+        </a>
+    </div>
+</div>
